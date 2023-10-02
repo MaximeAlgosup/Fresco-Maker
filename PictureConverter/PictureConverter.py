@@ -1,6 +1,5 @@
 import os
 import logging
-import json
 from PIL import Image
 from itertools import product
 
