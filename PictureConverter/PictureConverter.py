@@ -41,6 +41,19 @@ class PictureConverter:
                 out = os.path.join(out_folder, f'{i}_{j}{ext}')
                 crop_pic.save(out)
 
+    def get_matrix(self):
+        return self.color_matrix
+
+    def get_formatted_matrix(self):
+        res = []
+        for colors in self.color_matrix:
+            face = ""
+            for line in colors:
+                for char in line:
+                    face += char
+            res.append(face)
+        return res
+
     def __to_color_matrix(self, x, y, crop_pic, block_size):
         matrix = []
         for i in range(0, block_size):
@@ -48,7 +61,6 @@ class PictureConverter:
             for j in range(0, block_size):
                 line.append(self.__get_pixel_color_char(crop_pic, i, j))
             matrix.append(line)
-        print(matrix)
         return matrix
 
     def __get_pixel_color_char(self, pic, x, y):
