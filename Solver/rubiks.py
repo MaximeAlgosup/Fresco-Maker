@@ -151,3 +151,5 @@ while solved == False:
 if solved:
     print("Rubik's Cube Solution:")
     print(solution)
+    
+print("test")
