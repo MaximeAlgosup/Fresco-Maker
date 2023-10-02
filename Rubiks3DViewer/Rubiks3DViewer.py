@@ -1,7 +1,8 @@
 # Import libraries
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-import numpy as np
+import os
+import logging
 
 
 class RubiksViewer:
@@ -29,18 +30,24 @@ class RubiksViewer:
         # turn off/on axis
         self.plt.axis('off')
 
-    def set_new_pic(self, folder_path, pic_name, rubiks_config):
-        self.folder_path = folder_path
+    def set_new_pic(self, rubiks_config):
         self.rubiks_config = rubiks_config + str('N')
-        self.pic_name = pic_name
-        self.__generate_pic()
+        self.plt = self.__generate_pic()
 
     def show_pic(self):
         print("show pic")
-        plt.show()
+        self.plt.show()
 
-    def save_pic(self):
+    def save_pic(self, folder_path, pic_name):
         # save picture with name and folder specified
+        # check path
+        if os.path.exists(folder_path):
+            self.folder_path = folder_path
+            self.pic_name = pic_name
+            self.plt.savefig(self.folder_path + "/" + self.pic_name, dpi='figure', format='png')
+        else:
+            logging.error("Path doesn't exist")
+            exit(1)
         print("save pic")
 
     def __generate_pic(self):
@@ -80,8 +87,8 @@ class RubiksViewer:
                                                                x_axis_color, x_axis_color], edgecolors='black')
                     # Add the small cube to the plot
                     self.ax.add_collection3d(cube)
-        # Show the plot
-        plt.show()
+        # return the plot
+        return plt
 
     def __color_converter(self, color_char):
         match color_char:
@@ -100,7 +107,8 @@ class RubiksViewer:
             case 'N':
                 return self.black
 
-    def __face_color_mapper(self, x, y, z):
+    @staticmethod
+    def __face_color_mapper(x, y, z):
         encoded_face_id = str(x) + str(y) + str(z)
         match encoded_face_id:
             case "000":
