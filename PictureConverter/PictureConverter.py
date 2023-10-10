@@ -23,6 +23,26 @@ class PictureConverter:
             logging.error("Can't find the picture at the specified path")
             exit(1)
 
+    def split(self, cols, rows, output_dir):
+
+        # Calculate the width and height of each sub-image
+        sub_width = self.width // cols
+        sub_height = self.height // rows
+
+        for row in range(rows):
+            for col in range(cols):
+                # Define the coordinates for cropping
+                left = col * sub_width
+                upper = row * sub_height
+                right = left + sub_width
+                lower = upper + sub_height
+
+                # Crop the sub-image
+                sub_image = self.picture.crop((left, upper, right, lower))
+
+                # Save the sub-image
+                sub_image.save(os.path.join(output_dir, f"sub_image_{row}_{col}.png"))
+
     def tile(self, block_size, out_folder, need_matrix_conversion=True):
         if not os.path.exists(out_folder):
             logging.error("Can't find the out folder")
@@ -39,6 +59,11 @@ class PictureConverter:
             else:
                 out = os.path.join(out_folder, f'{i}_{j}{ext}')
                 crop_pic.save(out)
+
+    def test_rubiks_resolution(self):
+        if self.width % 3 > 0 or self.height % 3 > 0:
+            return False
+        return True
 
     def get_matrix(self):
         return self.color_matrix
