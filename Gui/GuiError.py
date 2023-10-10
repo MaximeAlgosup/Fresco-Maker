@@ -13,7 +13,7 @@ class GuiError:
         self.errors_win = Tk()
         self.errors_win.title("Rubik's solver 3000: ERROR")
 
-        self.errors_win.geometry("400x100")
+        self.errors_win.geometry("400x75")
         self.errors_win.configure(bg="#ffb121")
         self.errors_win.resizable(False, False)
         self.errors_win.iconbitmap('./logo/rubiks.ico')
