@@ -99,6 +99,9 @@ class RubiksSolver:
         while searching:
             index = random.randrange(6)
             
+            ## ERREUR : Boucle Infini car valeurs tableau = 8
+            # sachant qu'un rubiks cube ne peux avec que 9 fois la même couleur et que les centres ne sont pas pris en compte
+            # Le tableau ne devrait pas pouvoir dépasser 8 avant la fin de l'execution
             if list(colors.values())[index] < 8:
                 colors[list(colors)[index]] += 1
                 searching = False
