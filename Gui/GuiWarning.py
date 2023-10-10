@@ -1,4 +1,5 @@
-from tkinter import Tk, Label
+import sys
+from tkinter import Tk, Label, StringVar
 
 
 class GuiWarning:

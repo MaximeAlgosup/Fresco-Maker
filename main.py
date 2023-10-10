@@ -4,59 +4,18 @@ import os
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
 from Gui.GuiWarning import GuiWarning
-import threading
 
-
-def solve_cube(team, result_folder):
-    tmp_dir_path = "./" + str(result_folder) + "/team" + str(team) + "/tmp"
-    pic_path = "./" + str(result_folder) + "/team" + str(team) + "/team" + str(team) + ".png"
-    # create tmp folder
-    os.mkdir(tmp_dir_path)
-
-    # split pic in cubes
-    pic_splitter = pic_converter(pic_path)
-    pic_splitter.tile(3, tmp_dir_path)
-    matrix_data = pic_splitter.get_matrix()
-    for matrix in matrix_data:
-        # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
-        flattened_matrix = [element for row in matrix[1] for element in row]
-        # give matrix to solver
-
-        # get is answer
-        result_cubes = ["OOOOOOOOOBBBBBBBBBRRRRRRRRRWWWWWWWWWYYYYYYYYYGGGGGGGGG", "BBBBBBBBBOOOOOOOOORRRRRRRRRWWWWWWWWWYYYYYYYYYGGGGGGGGG"]
-        result_length = len(result_cubes)
-        for j in range(result_length):
-            cube = result_cubes[j]
-            r_viewer = viewer()
-            r_viewer.set_new_pic(cube)
-            r_viewer.save_pic(tmp_dir_path, str(str(matrix[0][0])+"_"+str(matrix[0][1])+"_part"+str(j)+".png"))
-            r_viewer.close_plt()
-
-    # delete tmp folder
-    # os.rmdir(tmp_dir_path)
-
-
-<<<<<<< HEAD
 start_win = GuiRunner()
 start_win.run_widow()
 user_data = start_win.get_data()
-=======
-# converted_pic = pic_converter("./test_pic.png")
-# converted_pic.tile(3, "./split_out")
-# converted_pic.get_formatted_matrix()
->>>>>>> 51d308a (Relation Mappin-Solver)
 
 picture_path = str(user_data[0])
 team_nb = int(user_data[1])
 is_create_doc = bool(user_data[2])
 
-# picture_path = "./test_pic.png"
-# team_nb = 8
-# is_create_doc = True
-
 # Check the path
 if not os.path.exists(str(picture_path)):
-    GuiError("ERROR: file not found at: " + str(picture_path))
+    GuiError("ERROR: file not found at: " + str(user_data[0]))
 
 # Check file is picture file
 if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -65,33 +24,6 @@ if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
 # Check team member nb
 if team_nb < 1:
     GuiError("ERROR: team number must be \n equal or upper than 1")
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
-## NEW Solver
-
-from RubiksSolver.RubiksSolver import RubiksSolver as RSolver
-
-cubestring = "FLBUULFFLFDURRDBUBUUDDFFBRDDBLRDRFLLRLRULFUDRRBDBBBUFL"
-
-if __name__ == '__main__':
-    
-    solver = RSolver()
-    
-    state, result = solver.tryToSolve(cubestring)
-    
-    if state:
-        print("Rubik's Cube Solution:")
-        print(result)
-    else:
-        print("cannot be solve")
-        print(result)
-
-
->>>>>>> 6d49067 (Poo + Class Mapping)
->>>>>>> Stashed changes
-=======
 
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
@@ -109,20 +41,3 @@ if not split.test_rubiks_resolution():
 GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
 for i in range(team_nb):
     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
-
-split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
-
-if is_create_doc:
-
-    for i in range(team_nb):
-        solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
-
-    # thread_tab = []
-    # for i in range(team_nb):
-    #     thread_calcul = threading.Thread(target=solve_cube, args=((i+1), str(res_folder_name + str(res_folder_number))))
-    #     thread_tab.append(thread_calcul)
-    #     thread_calcul.start()
-    #
-    # for thread in thread_tab:
-    #     thread.join()
->>>>>>> b4472d839cff802c045293b0bb16474e1adabba6
