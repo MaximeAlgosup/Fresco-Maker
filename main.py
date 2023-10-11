@@ -41,3 +41,5 @@ if not split.test_rubiks_resolution():
 GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
 for i in range(team_nb):
     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+
+split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
