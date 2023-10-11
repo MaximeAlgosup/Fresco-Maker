@@ -23,11 +23,33 @@ class PictureConverter:
             logging.error("Can't find the picture at the specified path")
             exit(1)
 
-    def split(self, cols, rows, output_dir):
+    def split(self, team_nb, output_dir):
+        # Handle the case when there is only one team
+        if team_nb == 1:
+            self.picture.save(os.path.join(output_dir, "team1/team1.png"))
+            return
+
+        # Determine the number of rows and columns for the sub-images
+        if team_nb == 2:
+            rows, cols = 1, 2
+        else:
+            if team_nb % 2 == 0:
+                rows = 2
+                cols = team_nb // 2
+            else:
+                rows = 1
+                cols = team_nb
 
         # Calculate the width and height of each sub-image
         sub_width = self.width // cols
         sub_height = self.height // rows
+
+        # Make sub_width and sub_height multiples of 3
+        sub_width = (sub_width // 3) * 3
+        sub_height = (sub_height // 3) * 3
+
+        # Initialize a counter for team numbering
+        nb = 1
 
         for row in range(rows):
             for col in range(cols):
@@ -40,8 +62,11 @@ class PictureConverter:
                 # Crop the sub-image
                 sub_image = self.picture.crop((left, upper, right, lower))
 
-                # Save the sub-image
-                sub_image.save(os.path.join(output_dir, f"sub_image_{row}_{col}.png"))
+                # Save the sub-image to the appropriate team directory
+                sub_image.save(os.path.join(output_dir, f"team{nb}/team{nb}.png"))
+
+                # Increment the team number counter
+                nb += 1
 
     def tile(self, block_size, out_folder, need_matrix_conversion=True):
         if not os.path.exists(out_folder):
