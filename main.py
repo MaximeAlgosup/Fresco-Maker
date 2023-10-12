@@ -5,6 +5,7 @@ import os
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
 from Gui.GuiWarning import GuiWarning
+from PdfGenerator.PdfGenerator import PDFGenerator
 
 
 def solve_cube(team, result_folder):
@@ -50,7 +51,7 @@ is_create_doc = bool(user_data[2])
 
 # Check the path
 if not os.path.exists(str(picture_path)):
-    GuiError("ERROR: file not found at: " + str(picture_path))
+    GuiError("ERROR: file not found at:\n" + str(picture_path))
 
 # Check file is picture file
 if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -89,7 +90,7 @@ if is_create_doc:
     #     thread_calcul = threading.Thread(target=solve_cube, args=((i+1), str(res_folder_name + str(res_folder_number))))
     #     thread_tab.append(thread_calcul)
     #     thread_calcul.start()
-    #
+    
     # for thread in thread_tab:
     #     thread.join()
     
@@ -110,3 +111,12 @@ if __name__ == '__main__':
     else:
         print("cannot be solve")
         print(result)
+        
+        
+####### PDF Generator #####
+        
+pdf_generator = PDFGenerator("rubiks_A_1.pdf")
+pdf_generator.add_text("Text about the rubiks")
+pdf_generator.add_comment("Comment about the rubiks cube (maybe can be modify ton give instructions).")
+pdf_generator.add_image(pdf_generator.selectIcons("U'"), 25, 37)
+pdf_generator.generate_pdf()
