@@ -4,6 +4,7 @@ from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 import os
 import logging
 
+#test
 
 class RubiksViewer:
     red = 'red'  # red
