@@ -100,11 +100,10 @@ class PictureConverter:
             box = (j, i, j + block_size, i + block_size)
             crop_pic = self.picture.crop(box)
             if need_matrix_conversion:
-                self.color_matrix.append(self.__to_color_matrix(i, j, crop_pic, block_size))
+                self.color_matrix.append([[i, j], self.__to_color_matrix( crop_pic, block_size)])
             else:
                 out = os.path.join(out_folder, f'{i}_{j}{ext}')
                 crop_pic.save(out)
-
     def test_rubiks_resolution(self):
         if self.width % 3 > 0 or self.height % 3 > 0:
             return False
@@ -123,7 +122,7 @@ class PictureConverter:
             res.append(face)
         return res
 
-    def __to_color_matrix(self, x, y, crop_pic, block_size):
+    def __to_color_matrix(self, crop_pic, block_size):
         matrix = []
         for i in range(0, block_size):
             line = []

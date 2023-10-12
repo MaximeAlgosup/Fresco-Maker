@@ -15,7 +15,6 @@ class RubiksViewer:
     black = 'black'  # black
 
     def __init__(self, cube_size=3):
-        # Initialize the 3D plot
         self.plt = plt
         self.fig = plt.figure(figsize=(10, 10))
         self.ax = plt.axes(projection='3d')
@@ -23,30 +22,25 @@ class RubiksViewer:
         self.pic_name = None
         self.rubiks_config = None
         self.folder_path = None
-
         # Set axis limits
         self.ax.set_xlim(0, 3)
         self.ax.set_ylim(0, 3)
         self.ax.set_zlim(0, 3)
 
-        # Turn off axis
+        # turn off/on axis
         self.plt.axis('off')
 
     def set_new_pic(self, rubiks_config):
-        # Set the new Rubik's Cube configuration
         self.rubiks_config = rubiks_config + str('N')
         self.plt = self.__generate_pic()
 
     def show_pic(self):
-        # Show the generated picture
+        print("show pic")
         self.plt.show()
 
-    def close_plt(self):
-        # Close the plot
-        self.plt.close()
-
     def save_pic(self, folder_path, pic_name):
-        # Save the generated picture with the specified folder and file name
+        # save picture with name and folder specified
+        # check path
         if os.path.exists(folder_path):
             self.folder_path = folder_path
             self.pic_name = pic_name
@@ -54,9 +48,10 @@ class RubiksViewer:
         else:
             logging.error("Path doesn't exist")
             exit(1)
+        print("save pic")
 
     def __generate_pic(self):
-        # Generate a 3D Rubik's Cube visualization with different face colors
+        # Create a 3x3x3 Rubik's Cube with different face colors
         for x in range(3):
             for y in range(3):
                 for z in range(3):
@@ -96,7 +91,6 @@ class RubiksViewer:
         return plt
 
     def __color_converter(self, color_char):
-        # Convert a character to a color
         match color_char:
             case 'O':
                 return self.orange
@@ -115,7 +109,6 @@ class RubiksViewer:
 
     @staticmethod
     def __face_color_mapper(x, y, z):
-        # Map the colors for each face of the small cube based on its position
         encoded_face_id = str(x) + str(y) + str(z)
         match encoded_face_id:
             case "000":
