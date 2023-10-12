@@ -5,13 +5,17 @@ from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
 from Gui.GuiWarning import GuiWarning
 
-start_win = GuiRunner()
-start_win.run_widow()
-user_data = start_win.get_data()
+# start_win = GuiRunner()
+# start_win.run_widow()
+# user_data = start_win.get_data()
+#
+# picture_path = str(user_data[0])
+# team_nb = int(user_data[1])
+# is_create_doc = bool(user_data[2])
 
-picture_path = str(user_data[0])
-team_nb = int(user_data[1])
-is_create_doc = bool(user_data[2])
+picture_path = "./test_pic.png"
+team_nb = int(8)
+is_create_doc = False
 
 # Check the path
 if not os.path.exists(str(picture_path)):
