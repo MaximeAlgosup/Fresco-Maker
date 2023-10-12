@@ -40,33 +40,57 @@ class PictureConverter:
                 rows = 1
                 cols = team_nb
 
-        # Calculate the width and height of each sub-image
-        sub_width = self.width // cols
-        sub_height = self.height // rows
+        # Define cols size
+        # set width in rubik's unit
+        r_width = self.width // 3
+        cols_size = r_width // cols
+        rest_cols = r_width % cols
 
-        # Make sub_width and sub_height multiples of 3
-        sub_width = (sub_width // 3) * 3
-        sub_height = (sub_height // 3) * 3
+        cols_size_val = []
+        for i in range(int(cols)):
+            cols_size_val.append(cols_size * 3)
+
+        cols_size_val[-1] = int(cols_size_val[-1]) + int(rest_cols) * 3
+
+        # Define height size
+        # set height in rubik's unit
+        r_height = self.height // 3
+        rows_size = r_height // rows
+        rest_rows = r_height % rows
+
+        rows_size_val = []
+        for i in range(int(rows)):
+            rows_size_val.append(rows_size * 3)
+
+        rows_size_val[-1] = int(rows_size_val[-1]) + int(rest_rows) * 3
+
+
+        coords = []
+
+        start_row = 0
+        for row in rows_size_val:
+            start_col = 0
+            end_row = start_row + row
+            for col in cols_size_val:
+                end_col = start_col + col
+                coords.append([start_col, start_row, end_col, end_row])
+                start_col = end_col
+            start_row = end_row
+
+        print(coords)
 
         # Initialize a counter for team numbering
         nb = 1
+        for cood in coords:
+            # Crop the sub-image
+            sub_image = self.picture.crop((cood[0], cood[1], cood[2], cood[3]))
 
-        for row in range(rows):
-            for col in range(cols):
-                # Define the coordinates for cropping
-                left = col * sub_width
-                upper = row * sub_height
-                right = left + sub_width
-                lower = upper + sub_height
+            # Save the sub-image to the appropriate team directory
+            sub_image.save(os.path.join(output_dir, f"team{nb}/team{nb}.png"))
 
-                # Crop the sub-image
-                sub_image = self.picture.crop((left, upper, right, lower))
+            # Increment the team number counter
+            nb += 1
 
-                # Save the sub-image to the appropriate team directory
-                sub_image.save(os.path.join(output_dir, f"team{nb}/team{nb}.png"))
-
-                # Increment the team number counter
-                nb += 1
 
     def tile(self, block_size, out_folder, need_matrix_conversion=True):
         if not os.path.exists(out_folder):
