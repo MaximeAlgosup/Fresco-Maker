@@ -35,8 +35,10 @@ class RubiksViewer:
         self.plt = self.__generate_pic()
 
     def show_pic(self):
-        print("show pic")
         self.plt.show()
+
+    def close_plt(self):
+        self.plt.close()
 
     def save_pic(self, folder_path, pic_name):
         # save picture with name and folder specified
@@ -48,7 +50,6 @@ class RubiksViewer:
         else:
             logging.error("Path doesn't exist")
             exit(1)
-        print("save pic")
 
     def __generate_pic(self):
         # Create a 3x3x3 Rubik's Cube with different face colors
