@@ -32,23 +32,20 @@ if int(user_data[1]) < 1:
 
 from RubiksSolver.RubiksSolver import RubiksSolver as RSolver
 
-pattern = [
-    'B', 'B', 'B',
-    'B', 'U', 'U',
-    'B', 'U', 'B'
-]
-#BBBBUUBUB RRR.RR.RR .F..F...F FFFFDDFDF L.L.LLL.. ....B.BB.
+cubestring = "FLBUULFFLFDURRDBUBUUDDFFBRDDBLRDRFLLRLRULFUDRRBDBBBUFL"
+
 if __name__ == '__main__':
     
-    solver = RSolver(pattern)
-    # cube_to_find = solver.getCenter() + "4"
+    solver = RSolver()
     
-
-
+    state, result = solver.tryToSolve(cubestring)
     
-
-   
-    # print(solver)
+    if state:
+        print("Rubik's Cube Solution:")
+        print(result)
+    else:
+        print("cannot be solve")
+        print(result)
 
 
 >>>>>>> 6d49067 (Poo + Class Mapping)
