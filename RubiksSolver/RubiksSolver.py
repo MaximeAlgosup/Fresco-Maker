@@ -28,24 +28,22 @@
 
 ##############################################################################################################
 
-import cmd
+#import libraries
 import kociemba
-import random
 from RubiksSolver.RubiksMapping.RubiksMapping import RubiksMapping
 
 class RubiksSolver:
     
     def __init__(self):
+        # Initialize an empty solution string and the standard solved Rubik's Cube representation.
         self.solution = ""
         self.solved_cube = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"
 
-
-
-
     def tryToSolve(self, cubeString):
         try:
+            # Attempt to solve the Rubik's Cube using Kociemba's algorithm.
             solution = kociemba.solve(self.solved_cube, cubeString)
-            return True, solution
+            return True, solution  # Return success and the solution string.
         except ValueError as e:
-            # Handle the error
-            return False, "Error:" + e
+            # Handle the error gracefully by returning False and an error message.
+            return False, "Error: " + str(e)
