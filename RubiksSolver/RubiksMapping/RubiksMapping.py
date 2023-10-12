@@ -1,8 +1,13 @@
 class RubiksMapping:
     
-    def __init__(self, pattern):
+    def __init__(self):
         self.mapping = {}
-        self.pattern = pattern
+        self.reverse = [
+                    ["F", "B"],
+                    ["L", "R"],
+                    ["U", "D"]
+                ]
+        self.usedCubes = self.create_used_cubes()
 
         # Crée un mappage pour chaque cube du Rubik's Cube
         for face in 'UDLRFB':
@@ -131,3 +136,44 @@ class RubiksMapping:
         # Retourne la liste des cubes situés sur les faces adjacentes au cube donné
         
         return self.mapping.get(cube, [])
+    
+
+    def get_opposite_cubes(self, cube):
+        
+        faceindex = cube #[0:1]
+        # positionIndex = cube[1:2]
+        
+        match faceindex:
+            case "U":
+                oppositeface = "D"
+            case "D":
+                oppositeface = "U"
+            case "L":
+                oppositeface = "R"
+            case "R":
+                oppositeface = "L"
+            case "F":
+                oppositeface = "B"
+            case "B":
+                oppositeface = "F"      
+        
+        return oppositeface #+ positionIndex
+    
+    def create_used_cubes(slef):
+        usedCubes = {}
+        
+        for face in 'UDLRFB':
+            for position in '123456789':
+                usedCubes[face+position] = False
+                
+        return usedCubes
+                
+    
+    def get_used_cubes(self, cube):
+        if self.usedCubes[cube]:
+            return True
+        else:
+            return False
+    
+    def set_used_cubes(self, cube):
+        self.usedCubes[cube] = True

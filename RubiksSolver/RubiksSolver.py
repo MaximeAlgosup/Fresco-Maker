@@ -1,11 +1,11 @@
 import kociemba
 import random
-from  RubiksMapping.RubiksMapping import RubiksMapping as Mapping
+from RubiksSolver.RubiksMapping.RubiksMapping import RubiksMapping
 
 
-mapping = Mapping(pattern)
-adjacent_cubes = mapping.get_adjacent_cubes(cube_to_find)
-print(f'Les cubes adjacents à {cube_to_find} sont : {adjacent_cubes}')
+# mapping = Mapping(pattern)
+# adjacent_cubes = mapping.get_adjacent_cubes(cube_to_find)
+# print(f'Les cubes adjacents à {cube_to_find} sont : {adjacent_cubes}')
 #   W
 # O G R B
 #   Y
@@ -15,23 +15,32 @@ class RubiksSolver:
     def __init__(self, pattern):
         self.pattern = pattern
         self.colors = self.colorsReset()
-        self.letters = []
         self.upside = "....U...."
         self.rightside = "....R...."
         self.face = "....F...."
         self.downside = "....D...."
         self.leftside = "....L...."
         self.back = "....B...."
-        
+        self.custom_pattern = ""
         self.solved_cube = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB"
-        self.custom_pattern = self.upside + self.rightside + self.face + self.downside + self.leftside + self.back
+        
         self.solution = ""
         self.solved = False
         
-        self.result = self.split_string_by_length(self.custom_pattern, 9)
-        self.addPatternToCubestring()
+        self.mapping = RubiksMapping()
         
-        self.tryToSolve()
+        
+        #self.addPatternToCubestring()
+        self.backface = self.invertColors()
+        
+        self.createCubestring()
+        
+        #self.tryToSolve()
+        
+        self.custom_pattern = self.upside + self.rightside + self.face + self.downside + self.leftside + self.back
+        # self.result = self.split_string_by_length(self.custom_pattern, 9)
+        
+        print(self.custom_pattern)
         
         
         if self.solved:
@@ -61,11 +70,12 @@ class RubiksSolver:
         return patternString
 
     def split_all_letters(self, string):
+        letters = []
     
         for letter in string:
-            self.letters.append(letter)
+            letters.append(letter)
             
-        return self.letters
+        return letters
 
 
 
@@ -94,7 +104,6 @@ class RubiksSolver:
         searching = True
         colors =  self.colors
 
-
         print(list(colors.values()))
         while searching:
             index = random.randrange(6)
@@ -110,8 +119,112 @@ class RubiksSolver:
         
 
 
-
-
+    def invertColors(self):    
+        
+        backface = []
+            
+        for i in range(0, len(self.pattern)):
+            
+            
+            letter =self.pattern[i]+ str(i+1)
+                
+            # adjacent_cubes = self.mapping.get_adjacent_cubes(letter)
+                 
+            opposite = self.mapping.get_opposite_cubes(self.pattern[i])
+                
+            backface.extend([opposite])
+            
+        return backface
+    
+    def completeFaces(self, face, index):
+        index = index-1
+        print(face+str(index))
+        match face:
+            case "U":
+                upside = self.split_all_letters(self.upside)
+                if upside[index] == ".":
+                    upside[index] = face
+                    self.upside = ''.join(upside)
+            case "D":
+                downside = self.split_all_letters(self.downside)
+                if downside[index] == ".":
+                    downside[index] = face
+                    self.downside = ''.join(downside)
+            case "L":
+                leftside = self.split_all_letters(self.leftside)
+                if leftside[index] == ".":
+                    leftside[index] = face
+                    self.leftside = ''.join(leftside)
+            case "R":
+                rightside = self.split_all_letters(self.rightside)
+                if rightside[index] == ".":
+                    rightside[index] = face
+                    self.rightside = ''.join(rightside)
+            case "B":
+                backside = self.split_all_letters(self.back)
+                if backside[index] == ".":
+                    backside[index] = face
+                    self.back = ''.join(backside)
+            case "F":
+                faceside = self.split_all_letters(self.face)
+                if faceside[index] == ".":
+                    faceside[index] = face
+                    self.face = ''.join(faceside)
+    
+    def setFacesPos(self, center, face):
+        
+        match center:
+            case "U":
+                self.upside = face
+            case "D":
+                self.downside = face
+            case "L":
+                self.leftside = face
+            case "R":
+                self.rightside = face
+            case "B":
+                self.back = face
+            case "F":
+                self.face = face
+            
+            
+    def setAdjacentFaces(self, face, position):
+        cubeName = face+str(position+1)
+        if not self.mapping.get_used_cubes(cubeName):
+            mapping = self.mapping.get_adjacent_cubes(cubeName)
+            
+            for facename in mapping:
+                face = facename[0:1]
+                index = facename[1:2]
+                self.completeFaces(face, int(index))
+            
+            
+        
+    
+    def createCubestring(self):
+    
+        
+        faceCenter = self.pattern[4]
+        backCenter = self.backface[4]
+        completeFace = ""
+        completeBack = ""
+        
+        
+        for i in range(0, len(self.pattern)):
+            completeFace = completeFace + self.pattern[i]
+            self.setAdjacentFaces(self.pattern[i], i)
+        
+        self.setFacesPos(faceCenter, completeFace)
+            
+        for i in range(0, len(self.backface)):
+            completeBack = completeBack + self.backface[i]
+            self.setAdjacentFaces(self.backface[i], i)
+        self.setFacesPos(backCenter, completeBack)
+    
+    
+        print(self.custom_pattern)
+    
+        return self.custom_pattern
 
     def createRdmCubestring(self):
         self.custom_pattern = ''
