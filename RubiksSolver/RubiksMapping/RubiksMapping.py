@@ -140,24 +140,44 @@ class RubiksMapping:
 
     def get_opposite_cubes(self, cube):
         
-        faceindex = cube #[0:1]
-        # positionIndex = cube[1:2]
-        
-        match faceindex:
-            case "U":
-                oppositeface = "D"
-            case "D":
-                oppositeface = "U"
-            case "L":
-                oppositeface = "R"
-            case "R":
-                oppositeface = "L"
-            case "F":
-                oppositeface = "B"
-            case "B":
-                oppositeface = "F"      
-        
-        return oppositeface #+ positionIndex
+        if len(cube) < 2:
+            faceindex = cube #[0:1]
+            # positionIndex = cube[1:2]
+            
+            match faceindex:
+                case "U":
+                    oppositeface = "D"
+                case "D":
+                    oppositeface = "U"
+                case "L":
+                    oppositeface = "R"
+                case "R":
+                    oppositeface = "L"
+                case "F":
+                    oppositeface = "B"
+                case "B":
+                    oppositeface = "F"      
+            
+            return oppositeface #+ positionIndex
+        else:
+            faceindex = cube[0:1]
+            positionIndex = cube[1:2]
+            
+            match faceindex:
+                case "U":
+                    oppositeface = "D"
+                case "D":
+                    oppositeface = "U"
+                case "L":
+                    oppositeface = "R"
+                case "R":
+                    oppositeface = "L"
+                case "F":
+                    oppositeface = "B"
+                case "B":
+                    oppositeface = "F"      
+            
+            return oppositeface #+ positionIndex
     
     def create_used_cubes(slef):
         usedCubes = {}
