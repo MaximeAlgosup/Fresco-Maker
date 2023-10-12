@@ -64,7 +64,6 @@ class PictureConverter:
 
         rows_size_val[-1] = int(rows_size_val[-1]) + int(rest_rows) * 3
 
-
         coords = []
 
         start_row = 0
@@ -77,8 +76,6 @@ class PictureConverter:
                 start_col = end_col
             start_row = end_row
 
-        print(coords)
-
         # Initialize a counter for team numbering
         nb = 1
         for cood in coords:
@@ -90,7 +87,6 @@ class PictureConverter:
 
             # Increment the team number counter
             nb += 1
-
 
     def tile(self, block_size, out_folder, need_matrix_conversion=True):
         if not os.path.exists(out_folder):
