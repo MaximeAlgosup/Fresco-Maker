@@ -1,5 +1,6 @@
 from Rubiks3DViewer.Rubiks3DViewer import RubiksViewer as viewer
 from PictureConverter.PictureConverter import PictureConverter as pic_converter
+from RubiksSolver.RubiksSolver import RubiksSolver as RSolver
 import os
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
@@ -91,3 +92,21 @@ if is_create_doc:
     #
     # for thread in thread_tab:
     #     thread.join()
+    
+    
+    
+
+cubestring = "FLBUULFFLFDURRDBUBUUDDFFBRDDBLRDRFLLRLRULFUDRRBDBBBUFL"
+
+if __name__ == '__main__':
+
+    solver = RSolver()
+
+    state, result = solver.tryToSolve(cubestring)
+
+    if state:
+        print("Rubik's Cube Solution:")
+        print(result)
+    else:
+        print("cannot be solve")
+        print(result)
