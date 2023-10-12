@@ -1,5 +1,6 @@
 from Rubiks3DViewer.Rubiks3DViewer import RubiksViewer as viewer
 from PictureConverter.PictureConverter import PictureConverter as pic_converter
+from RubiksSolver.RubiksSolver import RubiksSolver as RSolver
 import os
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
@@ -36,15 +37,9 @@ def solve_cube(team, result_folder):
     # os.rmdir(tmp_dir_path)
 
 
-<<<<<<< HEAD
 start_win = GuiRunner()
 start_win.run_widow()
 user_data = start_win.get_data()
-=======
-# converted_pic = pic_converter("./test_pic.png")
-# converted_pic.tile(3, "./split_out")
-# converted_pic.get_formatted_matrix()
->>>>>>> 51d308a (Relation Mappin-Solver)
 
 picture_path = str(user_data[0])
 team_nb = int(user_data[1])
@@ -125,4 +120,25 @@ if is_create_doc:
     #
     # for thread in thread_tab:
     #     thread.join()
+<<<<<<< HEAD
 >>>>>>> b4472d839cff802c045293b0bb16474e1adabba6
+=======
+    
+    
+    
+
+cubestring = "FLBUULFFLFDURRDBUBUUDDFFBRDDBLRDRFLLRLRULFUDRRBDBBBUFL"
+
+if __name__ == '__main__':
+
+    solver = RSolver()
+
+    state, result = solver.tryToSolve(cubestring)
+
+    if state:
+        print("Rubik's Cube Solution:")
+        print(result)
+    else:
+        print("cannot be solve")
+        print(result)
+>>>>>>> 26a66fe (Merge from main)
