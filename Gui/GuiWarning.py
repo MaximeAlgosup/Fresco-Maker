@@ -14,8 +14,4 @@ class GuiWarning:
 
         Label(self.warning_win, text=warning_message, font=("Arial", 15, "bold"), bg="#ffb121").pack()
 
-<<<<<<< HEAD
         self.warning_win.mainloop()
-=======
-        self.warning_win.mainloop()
->>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
