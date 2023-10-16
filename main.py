@@ -61,49 +61,30 @@ if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
 if team_nb < 1:
     GuiError("ERROR: team number must be \n equal or upper than 1")
 
-## NEW Solver
-
-from RubiksSolver.RubiksSolver import RubiksSolver as RSolver
-
-cubestring = "FLBUULFFLFDURRDBUBUUDDFFBRDDBLRDRFLLRLRULFUDRRBDBBBUFL"
-
-if __name__ == '__main__':
-    
-    solver = RSolver()
-    
-    state, result = solver.tryToSolve(cubestring)
-    
-    if state:
-        print("Rubik's Cube Solution:")
-        print(result)
-    else:
-        print("cannot be solve")
-        print(result)
-
 
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
-res_folder_number = 0
-while os.path.exists("./" + res_folder_name + str(res_folder_number)):
-    res_folder_number += 1
+# res_folder_number = 0
+# while os.path.exists("./" + res_folder_name + str(res_folder_number)):
+#     res_folder_number += 1
 
-os.mkdir("./" + res_folder_name + str(res_folder_number))
+# os.mkdir("./" + res_folder_name + str(res_folder_number))
 
-# Start to launch the splitter and check the picture size
-split = pic_converter(picture_path)
-if not split.test_rubiks_resolution():
-    GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
+# # Start to launch the splitter and check the picture size
+# split = pic_converter(picture_path)
+# if not split.test_rubiks_resolution():
+#     GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
 
-GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
-for i in range(team_nb):
-    os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+# # GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
+# for i in range(team_nb):
+#     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
 
-split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
+# split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
 
-if is_create_doc:
+# if is_create_doc:
 
-    for i in range(team_nb):
-        solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
+#     for i in range(team_nb):
+#         solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
 
     # thread_tab = []
     # for i in range(team_nb):
@@ -133,9 +114,16 @@ if __name__ == '__main__':
 
         
 ####### PDF Generator #####
+
+folderIndex = 0
+while os.path.exists("./" + res_folder_name + str(folderIndex)):  
+    for i in range(1, team_nb):
+        pdf_generator = PDFGenerator("rubiks_team_"+ str(i) +".pdf")
         
-pdf_generator = PDFGenerator("rubiks_A_1.pdf")
-pdf_generator.add_text("Text about the rubiks")
-pdf_generator.add_comment("Comment about the rubiks cube (maybe can be modify ton give instructions).")
-pdf_generator.add_image(pdf_generator.selectIcons("U'"), 25, 37)
-pdf_generator.generate_pdf()
+        for path in os.listdir("./"+res_folder_name + str(folderIndex)+"/team"+str(i)+"/tmp"):
+            pdf_generator.add_text("Text about the rubiks")
+            pdf_generator.add_comment("Comment about the rubiks cube (maybe can be modify ton give instructions).")
+            pdf_generator.add_image(pdf_generator.selectIcons("U'"), 25, 37)
+            pdf_generator.generate_pdf()
+        
+    folderIndex += 1
