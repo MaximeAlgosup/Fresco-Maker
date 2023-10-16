@@ -5,7 +5,11 @@ import os
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
 from Gui.GuiWarning import GuiWarning
+<<<<<<< HEAD
 import threading
+=======
+from PdfGenerator.PdfGenerator import PDFGenerator
+>>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
 
 
 def solve_cube(team, result_folder):
@@ -61,6 +65,7 @@ if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
 if team_nb < 1:
     GuiError("ERROR: team number must be \n equal or upper than 1")
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 =======
@@ -87,6 +92,8 @@ if __name__ == '__main__':
 >>>>>>> 6d49067 (Poo + Class Mapping)
 >>>>>>> Stashed changes
 =======
+=======
+>>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
 
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
@@ -121,8 +128,11 @@ if is_create_doc:
     # for thread in thread_tab:
     #     thread.join()
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b4472d839cff802c045293b0bb16474e1adabba6
 =======
+=======
+>>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
     
     
     
@@ -142,8 +152,11 @@ if __name__ == '__main__':
         print("cannot be solve")
         print(result)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 26a66fe (Merge from main)
 =======
+=======
+>>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
         
         
 ####### PDF Generator #####
@@ -152,5 +165,9 @@ pdf_generator = PDFGenerator("rubiks_A_1.pdf")
 pdf_generator.add_text("Text about the rubiks")
 pdf_generator.add_comment("Comment about the rubiks cube (maybe can be modify ton give instructions).")
 pdf_generator.add_image(pdf_generator.selectIcons("U'"), 25, 37)
+<<<<<<< HEAD
 pdf_generator.generate_pdf()
 >>>>>>> 4fb1cee (Add PdfGenerator)
+=======
+pdf_generator.generate_pdf()
+>>>>>>> 4fb1ceeab7bdd3ecc73c0d29be1fe17997ae1164
