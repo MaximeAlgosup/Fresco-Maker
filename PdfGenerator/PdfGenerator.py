@@ -1,7 +1,7 @@
 import os
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
 
 class PDFGenerator:
@@ -47,6 +47,9 @@ class PDFGenerator:
         else: 
            return False
        
+    def add_pageBreak(self):
+        self.story.append(PageBreak())
+       
     def selectIcons(self, move):
         icon = ""
         realMove = move
@@ -69,6 +72,16 @@ class PDFGenerator:
         
         
         return self.iconsPath + icon + '.png'
+            
+    def add_aligned_images(self, movements):
+        data = [[Image(self.selectIcons(move), 25, 37) for move in movements]]
+        col_widths = [25 for _ in range(len(movements))]
+        table = Table(data, colWidths=col_widths)
+        table.setStyle(TableStyle([
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ]))
+        self.story.append(table)
 
 # How to generate a PDF
 # call the class by passing the name of the output file

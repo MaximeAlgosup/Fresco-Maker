@@ -64,27 +64,27 @@ if team_nb < 1:
 
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
-# res_folder_number = 0
-# while os.path.exists("./" + res_folder_name + str(res_folder_number)):
-#     res_folder_number += 1
+res_folder_number = 0
+while os.path.exists("./" + res_folder_name + str(res_folder_number)):
+    res_folder_number += 1
 
-# os.mkdir("./" + res_folder_name + str(res_folder_number))
+os.mkdir("./" + res_folder_name + str(res_folder_number))
 
-# # Start to launch the splitter and check the picture size
-# split = pic_converter(picture_path)
-# if not split.test_rubiks_resolution():
-#     GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
+# Start to launch the splitter and check the picture size
+split = pic_converter(picture_path)
+if not split.test_rubiks_resolution():
+    GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
 
-# # GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
-# for i in range(team_nb):
-#     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+# GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
+for i in range(team_nb):
+    os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
 
-# split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
+split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
 
-# if is_create_doc:
+if is_create_doc:
 
-#     for i in range(team_nb):
-#         solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
+    for i in range(team_nb):
+        solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
 
     # thread_tab = []
     # for i in range(team_nb):
@@ -115,15 +115,31 @@ if __name__ == '__main__':
         
 ####### PDF Generator #####
 
+movements = ["U", "U'", "F", "F'"]
 folderIndex = 0
 while os.path.exists("./" + res_folder_name + str(folderIndex)):  
     for i in range(1, team_nb):
-        pdf_generator = PDFGenerator("rubiks_team_"+ str(i) +".pdf")
-        
+        pdf_generator = PDFGenerator("rubiks__result_"+str(folderIndex)+"-team_"+ str(i) +".pdf")
+        imgNb = 1
+        j = 1
         for path in os.listdir("./"+res_folder_name + str(folderIndex)+"/team"+str(i)+"/tmp"):
-            pdf_generator.add_text("Text about the rubiks")
-            pdf_generator.add_comment("Comment about the rubiks cube (maybe can be modify ton give instructions).")
-            pdf_generator.add_image(pdf_generator.selectIcons("U'"), 25, 37)
-            pdf_generator.generate_pdf()
+            
+            if imgNb < 2:
+                pdf_generator.add_text("image N° "+ str(j))
+                
+            pdf_generator.add_image("./"+res_folder_name + str(folderIndex)+"/team"+str(i)+"/tmp/"+path, 200, 200)
+            
+            if imgNb >= 2:
+                pdf_generator.add_pageBreak()
+                j += 1
+                imgNb = 1
+            else: 
+            
+                pdf_generator.add_aligned_images(movements)        
+                imgNb += 1
+            
+            
+            
+        pdf_generator.generate_pdf()
         
     folderIndex += 1
