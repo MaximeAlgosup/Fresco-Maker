@@ -12,7 +12,7 @@ def solve_cube(team, result_folder):
     pic_path = "./" + str(result_folder) + "/team" + str(team) + "/team" + str(team) + ".png"
     r_viewer = viewer()
     cube = Cube()
-    cube.move_d_p()
+    cube.move_f_p()
     r_viewer.set_new_pic(cube.get_cube())
     r_viewer.show_pic()
     r_viewer.close_plt()

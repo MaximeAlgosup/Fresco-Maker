@@ -22,9 +22,9 @@ class Cube:
             ['R', 'R', 'R',
              'R', 'R', 'R',
              'R', 'R', 'R'],
-            ['Y', 'B', 'Y',
+            ['Y', 'Y', 'Y',
              'Y', 'Y', 'Y',
-             'Y', 'R', 'Y'],
+             'Y', 'Y', 'Y'],
         ]
 
         self.moves_history = []
@@ -221,39 +221,133 @@ class Cube:
             # Add the move to history
             self.moves_history.append("L'")
 
+    # Move R x times
     def move_r(self, x=1):
         for i in range(x):
             # move right face
-            new_left_face = self.__rotate_matrix_reverse(self.RIGHT)
+            new_right_face = self.__rotate_matrix(self.RIGHT)
             # move up face
             face_nb = self.UP
-            new_up_face = [self.cube[self.FACE][0], self.cube[face_nb][1], self.cube[face_nb][2],
-                           self.cube[self.FACE][3], self.cube[face_nb][4], self.cube[face_nb][5],
-                           self.cube[self.FACE][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+            new_up_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.FACE][2],
+                           self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.FACE][5],
+                           self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.FACE][8]]
             # move main face
             face_nb = self.FACE
-            new_main_face = [self.cube[self.DOWN][0], self.cube[face_nb][1], self.cube[face_nb][2],
-                             self.cube[self.DOWN][3], self.cube[face_nb][4], self.cube[face_nb][5],
-                             self.cube[self.DOWN][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+            new_main_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.DOWN][2],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.DOWN][5],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.DOWN][8]]
             # move back face
             face_nb = self.BACK
-            new_back_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.UP][2],
-                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.UP][5],
-                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.UP][8]]
+            new_back_face = [self.cube[self.UP][0], self.cube[face_nb][1], self.cube[face_nb][2],
+                             self.cube[self.UP][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                             self.cube[self.UP][6], self.cube[face_nb][7], self.cube[face_nb][8]]
             # move down face
             face_nb = self.DOWN
-            new_down_face = [self.cube[self.BACK][0], self.cube[face_nb][1], self.cube[face_nb][2],
-                             self.cube[self.BACK][3], self.cube[face_nb][4], self.cube[face_nb][5],
-                             self.cube[self.BACK][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+            new_down_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.BACK][0],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.BACK][3],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.BACK][6]]
 
             self.cube[self.UP] = new_up_face
-            self.cube[self.LEFT] = new_left_face
+            self.cube[self.RIGHT] = new_right_face
             self.cube[self.FACE] = new_main_face
             self.cube[self.BACK] = new_back_face
             self.cube[self.DOWN] = new_down_face
 
             # Add the move to history
-            self.moves_history.append("L'")
+            self.moves_history.append("R")
+
+    # Move R' x times
+    def move_r_p(self, x=1):
+        for i in range(x):
+            # move right face
+            new_right_face = self.__rotate_matrix_reverse(self.RIGHT)
+            # move up face
+            face_nb = self.UP
+            new_up_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.BACK][0],
+                           self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.BACK][3],
+                           self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.BACK][6]]
+            # move main face
+            face_nb = self.FACE
+            new_main_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.UP][2],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.UP][5],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.UP][8]]
+            # move back face
+            face_nb = self.BACK
+            new_back_face = [self.cube[self.DOWN][0], self.cube[face_nb][1], self.cube[face_nb][2],
+                             self.cube[self.DOWN][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                             self.cube[self.DOWN][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+            # move down face
+            face_nb = self.DOWN
+            new_down_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.FACE][2],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.FACE][5],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.FACE][8]]
+            self.cube[self.UP] = new_up_face
+            self.cube[self.RIGHT] = new_right_face
+            self.cube[self.FACE] = new_main_face
+            self.cube[self.BACK] = new_back_face
+            self.cube[self.DOWN] = new_down_face
+            # Add the move to history
+            self.moves_history.append("R'")
+
+    # Move F x times
+    def move_f(self, x=1):
+        for i in range(x):
+            # move right face
+            new_main_face = self.__rotate_matrix(self.FACE)
+            face_nb = self.LEFT
+            new_left_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.DOWN][0],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.DOWN][1],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.DOWN][2]]
+            face_nb = self.UP
+            new_up_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[face_nb][2],
+                           self.cube[face_nb][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                           self.cube[self.LEFT][8], self.cube[self.LEFT][5], self.cube[self.LEFT][2]]
+            face_nb = self.RIGHT
+            new_right_face = [self.cube[self.UP][6], self.cube[face_nb][1], self.cube[face_nb][2],
+                              self.cube[self.UP][7], self.cube[face_nb][4], self.cube[face_nb][5],
+                              self.cube[self.UP][8], self.cube[face_nb][7], self.cube[face_nb][8]]
+            face_nb = self.DOWN
+            new_down_face = [self.cube[self.RIGHT][6], self.cube[self.RIGHT][3], self.cube[self.RIGHT][0],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+
+            self.cube[self.FACE] = new_main_face
+            self.cube[self.LEFT] = new_left_face
+            self.cube[self.UP] = new_up_face
+            self.cube[self.RIGHT] = new_right_face
+            self.cube[self.DOWN] = new_down_face
+            # Add the move to history
+            self.moves_history.append("F")
+
+    # Move F' x times
+    def move_f_p(self, x=1):
+        for i in range(x):
+            # move right face
+            new_main_face = self.__rotate_matrix_reverse(self.FACE)
+            face_nb = self.LEFT
+            new_left_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.UP][8],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.UP][7],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.UP][6]]
+            face_nb = self.UP
+            new_up_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[face_nb][2],
+                           self.cube[face_nb][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                           self.cube[self.RIGHT][0], self.cube[self.RIGHT][3], self.cube[self.RIGHT][6]]
+            face_nb = self.RIGHT
+            new_right_face = [self.cube[self.DOWN][2], self.cube[face_nb][1], self.cube[face_nb][2],
+                              self.cube[self.DOWN][1], self.cube[face_nb][4], self.cube[face_nb][5],
+                              self.cube[self.DOWN][0], self.cube[face_nb][7], self.cube[face_nb][8]]
+            face_nb = self.DOWN
+            new_down_face = [self.cube[self.LEFT][2], self.cube[self.LEFT][5], self.cube[self.LEFT][8],
+                             self.cube[face_nb][3], self.cube[face_nb][4], self.cube[face_nb][5],
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[face_nb][8]]
+
+            self.cube[self.FACE] = new_main_face
+            self.cube[self.LEFT] = new_left_face
+            self.cube[self.UP] = new_up_face
+            self.cube[self.RIGHT] = new_right_face
+            self.cube[self.DOWN] = new_down_face
+            # Add the move to history
+            self.moves_history.append("F'")
 
     # getters
     def get_cube(self):
