@@ -73,27 +73,27 @@ if team_nb < 1:
 
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
-# res_folder_number = 0
-# while os.path.exists("./" + res_folder_name + str(res_folder_number)):
-#     res_folder_number += 1
+res_folder_number = 0
+while os.path.exists("./" + res_folder_name + str(res_folder_number)):
+    res_folder_number += 1
 
-# os.mkdir("./" + res_folder_name + str(res_folder_number))
+os.mkdir("./" + res_folder_name + str(res_folder_number))
 
-# # Start to launch the splitter and check the picture size
-# split = pic_converter(picture_path)
-# if not split.test_rubiks_resolution():
-#     GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
+# Start to launch the splitter and check the picture size
+split = pic_converter(picture_path)
+if not split.test_rubiks_resolution():
+    GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
 
-# # GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
-# for i in range(team_nb):
-#     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+# GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
+for i in range(team_nb):
+    os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
 
-# split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
+split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
 
-# if is_create_doc:
+if is_create_doc:
 
-#     for i in range(team_nb):
-#         solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
+    for i in range(team_nb):
+        solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
 
     # thread_tab = []
     # for i in range(team_nb):
