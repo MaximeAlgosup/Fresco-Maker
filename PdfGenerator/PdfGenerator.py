@@ -9,12 +9,29 @@ class PDFGenerator:
         ##### Config 
         self.pdfsFolder = "pdfDocumentations"
         self.iconsPath = "PdfGenerator/icons/"
+        self.iconsSize = { "h":56, "w":38 } # Height and With of the image in px
         
         ##### DON'T TOUCH
         self.check_folder_exist()
         self.output_file = output_file
         self.doc = SimpleDocTemplate("pdfDocumentations/"+output_file, pagesize=letter)
         self.story = []
+        
+    def explainationPage(self):
+        
+        self.add_title("Fresco Documentation")
+        
+        self.add_image("PDFGenerator/exemple.png", 600, 400)
+        
+        self.add_text("You Fresco has been splitted in many parts like the exemple above, each part can be identified by is coords the top-left corner is identified as 0:0")
+        
+        self.add_pageBreak()
+
+    def add_title(self, text):
+        style_title = getSampleStyleSheet()["Title"]
+        style_title.alignment = 1
+        self.story.append(Paragraph(text, style_title))
+        self.story.append(Spacer(1, 12))
 
     def add_text(self, text):
         #Add a simple text to your pdf
@@ -29,7 +46,7 @@ class PDFGenerator:
         self.story.append(Paragraph(comment_text, styles["Normal"]))
         self.story.append(Spacer(1, 6))
         
-    def add_image(self, image_path, width=400, height=400):
+    def add_image(self, image_path, width=200, height=200):
         # add an image to your pdf
         img = Image(image_path, width, height)
         self.story.append(img)
@@ -54,6 +71,7 @@ class PDFGenerator:
         icon = ""
         realMove = move
         moveindex = ""
+        nb_move = 1
         
         
         if len(move) > 1:
@@ -63,7 +81,9 @@ class PDFGenerator:
                 case "'":
                     moveindex = "_Apostrophe"
                 case "2":
-                    moveindex = "_two"
+                    moveindex = ""
+                    nb_move = 2
+                    
             
         imagename = realMove
         imageindex = moveindex
@@ -71,17 +91,38 @@ class PDFGenerator:
         icon = imagename+imageindex
         
         
-        return self.iconsPath + icon + '.png'
+        return nb_move, self.iconsPath + icon + '.png'
             
     def add_aligned_images(self, movements):
-        data = [[Image(self.selectIcons(move), 25, 37) for move in movements]]
-        col_widths = [25 for _ in range(len(movements))]
-        table = Table(data, colWidths=col_widths)
-        table.setStyle(TableStyle([
-            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
-        ]))
-        self.story.append(table)
+        # Create a list to store the Image objects
+        images = []
+
+        for move in movements:
+            # Call selectIcon to determine the number of icons (1 or 2)
+            num_icons, icon = self.selectIcons(move)
+
+            # Create Image objects based on the result of selectIcon
+            image = Image(icon, self.iconsSize["w"], self.iconsSize["h"])
+            images.append(image)
+            
+            if num_icons == 2:
+                image = Image(icon, self.iconsSize["w"], self.iconsSize["h"])
+                images.append(image)
+                # Add a second image if num_icons is 2
+
+        col_widths = [self.iconsSize["w"] for _ in range(len(images))]
+
+        # Split images into rows of 10
+        rows_of_images = [images[i:i+10] for i in range(0, len(images), 10)]
+
+        for row in rows_of_images:
+            data = [row]
+            table = Table(data, colWidths=col_widths)
+            table.setStyle(TableStyle([
+                ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+                ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ]))
+            self.story.append(table)
 
 # How to generate a PDF
 # call the class by passing the name of the output file
