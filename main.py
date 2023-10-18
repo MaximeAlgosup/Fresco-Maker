@@ -5,6 +5,7 @@ from CubeConverter.Cube import Cube
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
 from Gui.GuiWarning import GuiWarning
+from PdfGenerator.PdfGenerator import PDFGenerator
 
 
 def solve_cube(team, result_folder):
@@ -35,8 +36,14 @@ def solve_cube(team, result_folder):
     #         cube = result_cubes[j]
     #         r_viewer = viewer()
     #         r_viewer.set_new_pic(cube)
-    #         r_viewer.save_pic(tmp_dir_path, str(str(matrix[0][0])+"_"+str(matrix[0][1])+"_part"+str(j)+".png"))
-    #         r_viewer.close_plt()
+    #         CoordX = matrix[0][0]
+    #         CoordY = matrix[0][1]
+    #         if CoordX < 10:
+    #               CoordX = "00000"+ str(CoordX)
+    #          if CoordY < 10:
+    #               CoordY = "00000"+ str(CoordY)
+    #          r_viewer.save_pic(tmp_dir_path, str(str(CoordX)+"_"+str(CoordY)+"_part"+str(j)+".png"))
+    #          r_viewer.close_plt()
 
     # delete tmp folder
     # os.rmdir(tmp_dir_path)
@@ -56,7 +63,7 @@ is_create_doc = True
 
 # Check the path
 if not os.path.exists(str(picture_path)):
-    GuiError("ERROR: file not found at: " + str(picture_path))
+    GuiError("ERROR: file not found at:\n" + str(picture_path))
 
 # Check file is picture file
 if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -79,7 +86,7 @@ split = pic_converter(picture_path)
 if not split.test_rubiks_resolution():
     GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
 
-GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
+# GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
 for i in range(team_nb):
     os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
 
@@ -95,6 +102,6 @@ if is_create_doc:
     #     thread_calcul = threading.Thread(target=solve_cube, args=((i+1), str(res_folder_name + str(res_folder_number))))
     #     thread_tab.append(thread_calcul)
     #     thread_calcul.start()
-    #
+
     # for thread in thread_tab:
     #     thread.join()
