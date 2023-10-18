@@ -104,7 +104,7 @@ class PictureConverter:
             self.color_matrix.append([[i, j], self.__to_color_matrix(crop_pic, block_size)])
             if save_pic:
                 # Save the cropped picture
-                out = os.path.join(out_folder, f'{i}_{j}{ext}')
+                out = os.path.join(out_folder, f'{int(i/3)}_{int(j/3)}{ext}')
                 crop_pic.save(out)
 
     def test_rubiks_resolution(self):

@@ -22,8 +22,8 @@ def solve_cube(team, result_folder):
     pic_splitter.tile(3, tmp_dir_path)
     matrix_data = pic_splitter.get_matrix()
     for matrix in matrix_data:
-        coord_x = matrix[0][0]
-        coord_y = matrix[0][1]
+        coord_x = int(matrix[0][0]/3)
+        coord_y = int(matrix[0][1]/3)
         # create base cube
         cube = Cube()
         r_viewer = viewer()

@@ -7,18 +7,18 @@ def to_face(cube, new_face):
     if is_cube_complete(cube, new_face):
         return
     # Check all edges to make the cross
-    set_top_edge_color(cube, new_face[1])
-    if is_cube_complete(cube, new_face):
-        return
-    set_bottom_edge_color(cube, new_face[7])
-    if is_cube_complete(cube, new_face):
-        return
-    set_left_edge_color(cube, new_face[3])
-    if is_cube_complete(cube, new_face):
-        return
-    set_right_edge_color(cube, new_face[5])
-    if is_cube_complete(cube, new_face):
-        return
+    for i in [1,7,3,5]:
+        match i:
+            case 1:
+                set_top_edge_color(cube, new_face[1])
+            case 3:
+                set_left_edge_color(cube, new_face[3])
+            case 5:
+                set_right_edge_color(cube, new_face[5])
+            case 7:
+                set_bottom_edge_color(cube, new_face[7])
+        if is_cube_complete(cube, new_face):
+            return
 
 
 def set_top_edge_color(cube, color):
