@@ -11,42 +11,44 @@ from PdfGenerator.PdfGenerator import PDFGenerator
 def solve_cube(team, result_folder):
     tmp_dir_path = "./" + str(result_folder) + "/team" + str(team) + "/tmp"
     pic_path = "./" + str(result_folder) + "/team" + str(team) + "/team" + str(team) + ".png"
-    r_viewer = viewer()
-    cube = Cube()
-    cube.move_b_p()
-    r_viewer.set_new_pic(cube.get_cube())
-    r_viewer.show_pic()
-    r_viewer.close_plt()
     # create tmp folder
-    # os.mkdir(tmp_dir_path)
-    #
-    # # split pic in cubes
-    # pic_splitter = pic_converter(pic_path)
-    # pic_splitter.tile(3, tmp_dir_path)
-    # matrix_data = pic_splitter.get_matrix()
-    # for matrix in matrix_data:
-    #     # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
-    #     flattened_matrix = [element for row in matrix[1] for element in row]
-    #     # give matrix to solver
-    #
-    #     # get is answer
-    #     result_cubes = ["OOOOOOOOOBBBBBBBBBRRRRRRRRRWWWWWWWWWYYYYYYYYYGGGGGGGGG", "BBBBBBBBBOOOOOOOOORRRRRRRRRWWWWWWWWWYYYYYYYYYGGGGGGGGG"]
-    #     result_length = len(result_cubes)
-    #     for j in range(result_length):
-    #         cube = result_cubes[j]
-    #         r_viewer = viewer()
-    #         r_viewer.set_new_pic(cube)
-    #         CoordX = matrix[0][0]
-    #         CoordY = matrix[0][1]
-    #         if CoordX < 10:
-    #               CoordX = "00000"+ str(CoordX)
-    #          if CoordY < 10:
-    #               CoordY = "00000"+ str(CoordY)
-    #          r_viewer.save_pic(tmp_dir_path, str(str(CoordX)+"_"+str(CoordY)+"_part"+str(j)+".png"))
-    #          r_viewer.close_plt()
+    os.mkdir(tmp_dir_path)
+    pdf_generator = PDFGenerator("rubiks__result_" + str(result_folder) + "-team_" + str(team) + ".pdf",
+                                 str(result_folder) + "/team" + str(team))
+    pdf_generator.explainationPage()
 
+    # split pic in cubes
+    pic_splitter = pic_converter(pic_path)
+    pic_splitter.tile(3, tmp_dir_path)
+    matrix_data = pic_splitter.get_matrix()
+    for matrix in matrix_data:
+        coord_x = matrix[0][0]
+        coord_y = matrix[0][1]
+        # create base cube
+        cube = Cube()
+        r_viewer = viewer()
+        r_viewer.set_new_pic(cube.get_cube())
+        r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part0.png"))
+        pdf_generator.add_text("Image Position : " + pdf_generator.reformatImageName(
+            str(str(coord_x) + "_" + str(coord_y) + "_part0.png")))
+        pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
+        # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
+        flattened_matrix = [element for row in matrix[1] for element in row]
+        # give matrix to solver
+        cube.move_f_p(3)
+        cube.move_r()
+        # save cube moved
+        r_viewer.set_new_pic(cube.get_cube())
+        r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part1.png"))
+        r_viewer.close_plt()
+
+        pdf_generator.add_aligned_images(cube.get_moves())
+        pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part1.png"), 175, 175)
+
+        pdf_generator.add_pageBreak()
+    pdf_generator.generate_pdf()
     # delete tmp folder
-    # os.rmdir(tmp_dir_path)
+    os.rmdir(tmp_dir_path)
 
 
 # start_win = GuiRunner()
@@ -58,7 +60,7 @@ def solve_cube(team, result_folder):
 # is_create_doc = bool(user_data[2])
 
 picture_path = "./test_pic.png"
-team_nb = 8
+team_nb = 16
 is_create_doc = True
 
 # Check the path
@@ -96,12 +98,3 @@ if is_create_doc:
 
     for i in range(team_nb):
         solve_cube((i + 1), str(res_folder_name + str(res_folder_number)))
-
-    # thread_tab = []
-    # for i in range(team_nb):
-    #     thread_calcul = threading.Thread(target=solve_cube, args=((i+1), str(res_folder_name + str(res_folder_number))))
-    #     thread_tab.append(thread_calcul)
-    #     thread_calcul.start()
-
-    # for thread in thread_tab:
-    #     thread.join()
