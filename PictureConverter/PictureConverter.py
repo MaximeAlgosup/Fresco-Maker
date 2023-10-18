@@ -87,7 +87,7 @@ class PictureConverter:
             # Increment the team number counter
             nb += 1
 
-    def tile(self, block_size, out_folder, need_matrix_conversion=True):
+    def tile(self, block_size, out_folder, save_pic=True):
         # Tile the picture into smaller blocks
         if not os.path.exists(out_folder):
             logging.error("Can't find the out folder")
@@ -100,10 +100,9 @@ class PictureConverter:
         for i, j in grid:
             box = (j, i, j + block_size, i + block_size)
             crop_pic = self.picture.crop(box)
-            if need_matrix_conversion:
-                # Append color matrix information
-                self.color_matrix.append([[i, j], self.__to_color_matrix(crop_pic, block_size)])
-            else:
+            # Append color matrix information
+            self.color_matrix.append([[i, j], self.__to_color_matrix(crop_pic, block_size)])
+            if save_pic:
                 # Save the cropped picture
                 out = os.path.join(out_folder, f'{i}_{j}{ext}')
                 crop_pic.save(out)
@@ -135,7 +134,7 @@ class PictureConverter:
         for i in range(0, block_size):
             line = []
             for j in range(0, block_size):
-                line.append(self.__get_pixel_color_char(crop_pic, i, j))
+                line.append(self.__get_pixel_color_char(crop_pic, j, i))
             matrix.append(line)
         return matrix
 

@@ -2,11 +2,6 @@
 /test_pic.png
 /pdfDocumentations/
 
-result0
-result0/*
-result1
-result1/*
-result2
-result2/*
-result3
-result3/*
+result*
+result*/*
+

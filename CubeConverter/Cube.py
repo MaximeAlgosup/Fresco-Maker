@@ -381,6 +381,7 @@ class Cube:
             self.moves_history.append("B")
 
         # Move B x times
+
     def move_b_p(self, x=1):
         for i in range(x):
             # move right face
@@ -419,8 +420,72 @@ class Cube:
                 string_res += face
         return string_res
 
+    def get_matrix_cube(self):
+        return self.cube
+
     def get_moves(self):
         return self.moves_history
+
+    def get_top_crown_edges(self):
+        return [
+            {"moves": [["U'", 1]], "color": self.cube[self.LEFT][1]},
+            {"moves": [["U", 1]], "color": self.cube[self.RIGHT][1]},
+            {"moves": [["U", 2]], "color": self.cube[self.BACK][1]},
+            {"moves": [["U'", 1], ["R'", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.UP][7]},
+            {"moves": [["F", 2], ["U'", 1], ["R'", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.DOWN][1]}
+        ]
+
+    def get_bottom_crown_edges(self):
+        return [
+            {"moves": [["D", 1]], "color": self.cube[self.LEFT][7]},
+            {"moves": [["D'", 1]], "color": self.cube[self.RIGHT][7]},
+            {"moves": [["D", 2]], "color": self.cube[self.BACK][7]},
+            {"moves": [["B'", 2], ["D'", 1], ["F'", 1], ["R", 1], ["F", 1]], "color": self.cube[self.UP][1]},
+            {"moves": [["B", 1], ["R", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]},
+        ]
+
+    def get_left_crown_edges(self):
+        return [
+            {"moves": [["L", 1]], "color": self.cube[self.UP][3]},
+            {"moves": [["B", 1], ["L'", 1], ["F'", 1], ["D", 1], ["F", 1]], "color": self.cube[self.UP][1]},
+            {"moves": [["U", ], ["L'", 1], ["U", 2]], "color": self.cube[self.UP][5]},
+            {"moves": [["L'", 1]], "color": self.cube[self.DOWN][3]},
+            {"moves": [["D", 2], ["L'", 1], ["D", 2]], "color": self.cube[self.DOWN][5]},
+            {"moves": [["D", 1], ["L'", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]},
+            {"moves": [["L'", 1], ["B'", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.LEFT][1]},
+            {"moves": [["B'", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.LEFT][3]},
+            {"moves": [["L'", 2], ["B'", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.LEFT][5]},
+            {"moves": [["F'", 1], ["D", 1], ["F", 1]], "color": self.cube[self.LEFT][7]},
+            {"moves": [["F", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.RIGHT][1]},
+            {"moves": [["B", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.RIGHT][5]},
+            {"moves": [["R'", 1], ["B", 1], ["R", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.RIGHT][7]},
+            {"moves": [["B'", 1], ["L", 2]], "color": self.cube[self.BACK][1]},
+            {"moves": [["L", 2]], "color": self.cube[self.BACK][3]},
+            {"moves": [["B'", 2], ["L", 2]], "color": self.cube[self.BACK][5]},
+            {"moves": [["B", 1], ["L", 2]], "color": self.cube[self.BACK][7]},
+
+        ]
+
+    def get_right_crown_edges(self):
+        return [
+            {"moves": [["U", 1], ["R'", 1], ["U'", 1]], "color": self.cube[self.UP][1]},
+            {"moves": [["U", 2], ["R'", 1], ["U", 2]], "color": self.cube[self.UP][3]},
+            {"moves": [["R'", 1]], "color": self.cube[self.UP][5]},
+            {"moves": [["D", 2], ["R", 1], ["D", 2]], "color": self.cube[self.DOWN][3]},
+            {"moves": [["R", 1]], "color": self.cube[self.DOWN][5]},
+            {"moves": [["D'", 1], ["R", 1], ["D", 1]], "color": self.cube[self.DOWN][5]},
+            {"moves": [["", 1], ["B'", 1], ["R", 2], ["U'", 1]], "color": self.cube[self.LEFT][1]},
+            {"moves": [["B'", 1], ["U", 1], ["R'", 1], ["U'", 1]], "color": self.cube[self.LEFT][3]},
+            {"moves": [["F", 1], ["D", 1], ["F'", 1]], "color": self.cube[self.LEFT][7]},
+            {"moves": [["F", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.RIGHT][1]},
+            {"moves": [["R", 1], ["F'", 1], ["U", 1], ["F", 1]], "color": self.cube[self.RIGHT][3]},
+            {"moves": [["B", 1], ["U", 1], ["R", 1], ["U'", 1]], "color": self.cube[self.RIGHT][5]},
+            {"moves": [["F", 1], ["D'", 1], ["F'", 1]], "color": self.cube[self.RIGHT][7]},
+            {"moves": [["B'", 1], ["R", 2]], "color": self.cube[self.BACK][1]},
+            {"moves": [["R", 2]], "color": self.cube[self.BACK][3]},
+            {"moves": [["B", 2], ["R", 2]], "color": self.cube[self.BACK][5]},
+            {"moves": [["B", 1], ["R", 2]], "color": self.cube[self.BACK][7]},
+        ]
 
     # private
     def __rotate_matrix(self, face_nb):

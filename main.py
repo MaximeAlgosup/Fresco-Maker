@@ -4,9 +4,9 @@ import os
 from CubeConverter.Cube import Cube
 from Gui.GuiRunner import GuiRunner
 from Gui.GuiError import GuiError
-from Gui.GuiWarning import GuiWarning
 from PdfGenerator.PdfGenerator import PDFGenerator
-
+from FaceSolver import FaceSolver as fSolver
+import shutil
 
 def solve_cube(team, result_folder):
     tmp_dir_path = "./" + str(result_folder) + "/team" + str(team) + "/tmp"
@@ -35,8 +35,7 @@ def solve_cube(team, result_folder):
         # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
         flattened_matrix = [element for row in matrix[1] for element in row]
         # give matrix to solver
-        cube.move_f_p(3)
-        cube.move_r()
+        fSolver.to_face(cube, flattened_matrix)
         # save cube moved
         r_viewer.set_new_pic(cube.get_cube())
         r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part1.png"))
@@ -44,11 +43,13 @@ def solve_cube(team, result_folder):
 
         pdf_generator.add_aligned_images(cube.get_moves())
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part1.png"), 175, 175)
+        pdf_generator.add_text("Awaited result:")
+        pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + ".png"), 75, 75)
 
         pdf_generator.add_pageBreak()
     pdf_generator.generate_pdf()
     # delete tmp folder
-    os.rmdir(tmp_dir_path)
+    shutil.rmtree(tmp_dir_path)
 
 
 # start_win = GuiRunner()
