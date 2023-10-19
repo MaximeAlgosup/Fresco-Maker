@@ -19,6 +19,12 @@ def to_face(cube, new_face):
         match i:
             case 0:
                 set_top_left_corner_color(cube, new_face[0])
+            case 2:
+                set_top_right_corner_color(cube, new_face[2])
+            case 6:
+                set_bottom_left_corner_color(cube, new_face[6])
+            case 8:
+                set_bottom_right_corner_color(cube, new_face[8])
 
         if is_cube_complete(cube, new_face):
             return
@@ -60,6 +66,8 @@ def set_right_edge_color(cube, color):
     right_edges = cube.get_right_crown_edges()
     for edge in right_edges:
         if edge["color"] == color:
+            print(cube.get_moves())
+            print(edge)
             moves_executor(cube, edge["moves"])
             return True
 
@@ -74,14 +82,42 @@ def set_top_left_corner_color(cube, color):
             return True
 
 
+def set_top_right_corner_color(cube, color):
+    if cube.get_matrix_cube()[2][2] == color:
+        return True
+    top_right_corners = cube.get_top_right_corners()
+    for corner in top_right_corners:
+        if corner["color"] == color:
+            moves_executor(cube, corner["moves"])
+            return True
+
+
+def set_bottom_left_corner_color(cube, color):
+    if cube.get_matrix_cube()[2][6] == color:
+        return True
+    bottom_left_corners = cube.get_bottom_left_corners()
+    for corner in bottom_left_corners:
+        if corner["color"] == color:
+            moves_executor(cube, corner["moves"])
+            return True
+
+
+def set_bottom_right_corner_color(cube, color):
+    if cube.get_matrix_cube()[2][8] == color:
+        return True
+    bottom_right_corners = cube.get_bottom_right_corners()
+    for corner in bottom_right_corners:
+        if corner["color"] == color:
+            moves_executor(cube, corner["moves"])
+            return True
+
+
 def is_cube_complete(cube, new_face):
     return all(cube.get_matrix_cube()[2][i] == new_face[i] for i in range(8))
 
 
 def moves_executor(cube, moves):
-    print(moves)
     for move in moves:
-        print(move)
         match move[0]:
             case "U":
                 cube.move_u(move[1])

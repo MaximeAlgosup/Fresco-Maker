@@ -27,6 +27,7 @@ def solve_cube(team, result_folder):
 
         coord_x = int(matrix[0][0]/3)
         coord_y = int(matrix[0][1]/3)
+        print(f"x:{coord_x} , y:{coord_y}")
         # create base cube
         cube = Cube()
         r_viewer = viewer()

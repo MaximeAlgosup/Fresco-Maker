@@ -28,7 +28,6 @@ class Cube:
         ]
 
         self.moves_history = []
-        print("passe")
         if not self.__base_check():
             exit(1)
 
@@ -167,7 +166,6 @@ class Cube:
 
     # Move U x times
     def move_u(self, x=1):
-        print("move U")
         for i in range(x):
             new_up_face = self.__rotate_matrix(self.UP)
 
@@ -205,10 +203,8 @@ class Cube:
         if not self.__base_check():
             exit(1)
 
-
     # Move D x times
     def move_d(self, x=1):
-        print("move D")
         for i in range(x):
             new_down_face = self.__rotate_matrix(self.DOWN)
 
@@ -245,13 +241,10 @@ class Cube:
             # Add the move to history
             self.moves_history.append("D")
         if not self.__base_check():
-            print("error invalid cube")
             exit(1)
-        print("passe")
 
     # Move U' x times
     def move_u_p(self, x=1):
-        print("move U'")
         for i in range(x):
             new_up_face = self.__rotate_matrix_reverse(self.UP)
             # Define the faces to update in a loop
@@ -291,7 +284,6 @@ class Cube:
 
     # Move D' x times
     def move_d_p(self, x=1):
-        print("move D'")
         for i in range(x):
             new_down_face = self.__rotate_matrix_reverse(self.DOWN)
 
@@ -331,7 +323,6 @@ class Cube:
 
     # Move L x times
     def move_l(self, x=1):
-        print("move L")
         for i in range(x):
             # move left face
             new_left_face = self.__rotate_matrix(self.LEFT)
@@ -369,7 +360,6 @@ class Cube:
 
     # Move L' x times
     def move_l_p(self, x=1):
-        print("move L'")
         for i in range(x):
             # move left face
             new_left_face = self.__rotate_matrix_reverse(self.LEFT)
@@ -407,7 +397,6 @@ class Cube:
 
     # Move R x times
     def move_r(self, x=1):
-        print("move R")
         for i in range(x):
             # move right face
             new_right_face = self.__rotate_matrix(self.RIGHT)
@@ -445,7 +434,6 @@ class Cube:
 
     # Move R' x times
     def move_r_p(self, x=1):
-        print("move R'")
         for i in range(x):
             # move right face
             new_right_face = self.__rotate_matrix_reverse(self.RIGHT)
@@ -481,7 +469,6 @@ class Cube:
 
     # Move F x times
     def move_f(self, x=1):
-        print("move F")
         for i in range(x):
             # move right face
             new_main_face = self.__rotate_matrix(self.FACE)
@@ -514,7 +501,6 @@ class Cube:
 
     # Move F' x times
     def move_f_p(self, x=1):
-        print("move F'")
         for i in range(x):
             # move right face
             new_main_face = self.__rotate_matrix_reverse(self.FACE)
@@ -547,7 +533,6 @@ class Cube:
 
     # Move B x times
     def move_b(self, x=1):
-        print("move B")
         for i in range(x):
             # move right face
             new_back_face = self.__rotate_matrix(self.BACK)
@@ -582,7 +567,6 @@ class Cube:
         # Move B x times
 
     def move_b_p(self, x=1):
-        print("move B'")
         for i in range(x):
             # move right face
             new_back_face = self.__rotate_matrix_reverse(self.BACK)
@@ -643,14 +627,14 @@ class Cube:
             {"moves": [["D'", 1]], "color": self.cube[self.RIGHT][7]},
             {"moves": [["D", 2]], "color": self.cube[self.BACK][7]},
             {"moves": [["B'", 2], ["D'", 1], ["F'", 1], ["R", 1], ["F", 1]], "color": self.cube[self.UP][1]},
-            {"moves": [["B", 1], ["R", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]},
+            {"moves": [["B", 1], ["R", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]}
         ]
 
     def get_left_crown_edges(self):
         return [
             {"moves": [["L", 1]], "color": self.cube[self.UP][3]},
             {"moves": [["B", 1], ["L'", 1], ["F'", 1], ["D", 1], ["F", 1]], "color": self.cube[self.UP][1]},
-            {"moves": [["U", 2], ["L'", 1], ["U", 2]], "color": self.cube[self.UP][5]},
+            {"moves": [["U", 2], ["L", 1], ["U", 2]], "color": self.cube[self.UP][5]},
             {"moves": [["L'", 1]], "color": self.cube[self.DOWN][3]},
             {"moves": [["D", 2], ["L'", 1], ["D", 2]], "color": self.cube[self.DOWN][5]},
             {"moves": [["D", 1], ["L'", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]},
@@ -665,8 +649,7 @@ class Cube:
             {"moves": [["B'", 1], ["L", 2]], "color": self.cube[self.BACK][1]},
             {"moves": [["L", 2]], "color": self.cube[self.BACK][3]},
             {"moves": [["B'", 2], ["L", 2]], "color": self.cube[self.BACK][5]},
-            {"moves": [["B", 1], ["L", 2]], "color": self.cube[self.BACK][7]},
-
+            {"moves": [["B", 1], ["L", 2]], "color": self.cube[self.BACK][7]}
         ]
 
     def get_right_crown_edges(self):
@@ -680,21 +663,19 @@ class Cube:
             {"moves": [["F'", 1], ["U'", 1], ["F", 1]], "color": self.cube[self.LEFT][1]},
             {"moves": [["B'", 1], ["U", 1], ["R'", 1], ["U'", 1]], "color": self.cube[self.LEFT][3]},
             {"moves": [["F", 1], ["D", 1], ["F'", 1]], "color": self.cube[self.LEFT][7]},
-            {"moves": [["F", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.RIGHT][1]},
+            {"moves": [["F'", 1], ["U", 1], ["F", 1]], "color": self.cube[self.RIGHT][1]},
             {"moves": [["R", 1], ["F'", 1], ["U", 1], ["F", 1]], "color": self.cube[self.RIGHT][3]},
             {"moves": [["B", 1], ["U", 1], ["R", 1], ["U'", 1]], "color": self.cube[self.RIGHT][5]},
             {"moves": [["F", 1], ["D'", 1], ["F'", 1]], "color": self.cube[self.RIGHT][7]},
             {"moves": [["B'", 1], ["R", 2]], "color": self.cube[self.BACK][1]},
             {"moves": [["R", 2]], "color": self.cube[self.BACK][3]},
             {"moves": [["B", 2], ["R", 2]], "color": self.cube[self.BACK][5]},
-            {"moves": [["B", 1], ["R", 2]], "color": self.cube[self.BACK][7]},
+            {"moves": [["B", 1], ["R", 2]], "color": self.cube[self.BACK][7]}
         ]
 
     def get_top_left_corners(self):
         return [
             {"moves": [["L'", 1], ["B'", 1], ["L", 1]], "color": self.cube[self.LEFT][0]},
-            {"moves": [["U", 1], ["B'", 1], ["U'", 1], ["B'", 2], ["U", 1], ["B", 2], ["U'", 1]],
-             "color": self.cube[self.LEFT][2]},
             {"moves": [["B", 2], ["L'", 1], ["B", 1], ["L", 1]], "color": self.cube[self.LEFT][6]},
             {"moves": [["L'", 1], ["B", 1], ["L", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B", 2], ["L'", 1], ["B'", 1], ["L", 1]], "color": self.cube[self.RIGHT][8]},
@@ -702,8 +683,60 @@ class Cube:
             {"moves": [["B", 1], ["F'", 1], ["D'", 1], ["B", 2], ["D", 1], ["F", 1]], "color": self.cube[self.DOWN][8]},
             {"moves": [["B'", 1], ["L'", 1], ["B", 1], ["L", 1]], "color": self.cube[self.UP][0]},
             {"moves": [["B", 1], ["L'", 1], ["B'", 1], ["L", 1]], "color": self.cube[self.UP][2]},
-            {"moves": [["L'", 1], ["B'", 1], ["L", 1], ["L", 1], ["B'", 1], ["L'", 1], ["B", 1], ["L", 1]],
-             "color": self.cube[self.UP][6]},
+            {"moves": [["B'", 1], ["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["B'", 2], ["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["B", 1], ["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][8]}
+        ]
+
+    def get_top_right_corners(self):
+        return [
+            {"moves": [["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.RIGHT][2]},
+            {"moves": [["B'", 1], ["R", 1], ["B", 2], ["R'", 1]], "color": self.cube[self.RIGHT][8]},
+            {"moves": [["R", 1], ["B'", 1], ["R'", 1]], "color": self.cube[self.LEFT][0]},
+            {"moves": [["B", 2], ["R", 1], ["B", 1], ["R'L", 1]], "color": self.cube[self.LEFT][6]},
+            {"moves": [["B", 2], ["U'", 1], ["B'", 1], ["U", 1]], "color": self.cube[self.DOWN][6]},
+            {"moves": [["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.DOWN][8]},
+            {"moves": [["B'", 1], ["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.UP][0]},
+            {"moves": [["B'", 1], ["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["B", 2], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["B", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][8]}
+        ]
+
+    def get_bottom_left_corners(self):
+        return [
+            {"moves": [["B", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.LEFT][0]},
+            {"moves": [["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.LEFT][6]},
+            {"moves": [["D'", 1], ["B", 2], ["D", 1]], "color": self.cube[self.RIGHT][2]},
+            {"moves": [["B'", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.RIGHT][8]},
+            {"moves": [["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.DOWN][6]},
+            {"moves": [["B", 1], ["D'", 1], ["B", 2], ["D", 1]], "color": self.cube[self.DOWN][8]},
+            {"moves": [["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.UP][0]},
+            {"moves": [["B", 2], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["B", 2], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["B'", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][8]},
+
+        ]
+
+    def get_bottom_right_corners(self):
+        return [
+            {"moves": [["D", 1], ["B'", 2], ["D'", 1]], "color": self.cube[self.LEFT][0]},
+            {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.LEFT][6]},
+            {"moves": [["B'", 1], ["D", 2], ["B", 1], ["D'", 1]], "color": self.cube[self.RIGHT][2]},
+            {"moves": [["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.RIGHT][8]},
+            {"moves": [["B", 2], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.DOWN][6]},
+            {"moves": [["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.DOWN][8]},
+            {"moves": [["B", 2], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.UP][0]},
+            {"moves": [["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["B'", 6], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][8]},
+
         ]
 
     # private
