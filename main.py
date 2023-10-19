@@ -50,6 +50,7 @@ def solve_cube(team, result_folder):
     pdf_generator.generate_pdf()
     # delete tmp folder
     shutil.rmtree(tmp_dir_path)
+    exit(0)
 
 
 # start_win = GuiRunner()

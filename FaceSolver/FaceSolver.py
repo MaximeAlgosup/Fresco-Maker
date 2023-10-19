@@ -6,8 +6,8 @@ def to_face(cube, new_face):
     #     cube.move_face_to(new_face[4])
     if is_cube_complete(cube, new_face):
         return
-    # Check all edges to make the cross
-    for i in [1,7,3,5]:
+    # Set edges to make the cross
+    for i in [1, 7, 3, 5]:
         match i:
             case 1:
                 set_top_edge_color(cube, new_face[1])
@@ -17,6 +17,14 @@ def to_face(cube, new_face):
                 set_right_edge_color(cube, new_face[5])
             case 7:
                 set_bottom_edge_color(cube, new_face[7])
+        if is_cube_complete(cube, new_face):
+            return
+    # Set corners to finish face
+    for i in [0, 2, 6, 8]:
+        match i:
+            case 0:
+                set_top_left_corner_color(cube, new_face[0])
+
         if is_cube_complete(cube, new_face):
             return
 
@@ -58,6 +66,16 @@ def set_right_edge_color(cube, color):
     for edge in right_edges:
         if edge["color"] == color:
             moves_executor(cube, edge["moves"])
+            return True
+
+
+def set_top_left_corner_color(cube, color):
+    if cube.get_matrix_cube()[2][0] == color:
+        return True
+    top_left_corners = cube.get_top_left_corners()
+    for corner in top_left_corners:
+        if corner["color"] == color:
+            moves_executor(cube, corner["moves"])
             return True
 
 
