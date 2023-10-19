@@ -2,6 +2,7 @@
 /test_pic.png
 /pdfDocumentations/
 
+build/
 result*
 result*/*
 
