@@ -35,6 +35,9 @@ def solve_cube(team, result_folder):
         # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
         flattened_matrix = [element for row in matrix[1] for element in row]
         # give matrix to solver
+        
+        cube.move_center(flattened_matrix)
+        
         fSolver.to_face(cube, flattened_matrix)
         # save cube moved
         r_viewer.set_new_pic(cube.get_cube())
