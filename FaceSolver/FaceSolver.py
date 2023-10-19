@@ -1,11 +1,6 @@
 def to_face(cube, new_face):
     if is_cube_complete(cube, new_face):
         return
-    # Check if the center face correspond
-    # if not cube.get_matrix_cube()[2][4] == new_face[4]:
-    #     cube.move_face_to(new_face[4])
-    if is_cube_complete(cube, new_face):
-        return
     # Set edges to make the cross
     for i in [1, 7, 3, 5]:
         match i:
@@ -84,7 +79,9 @@ def is_cube_complete(cube, new_face):
 
 
 def moves_executor(cube, moves):
+    print(moves)
     for move in moves:
+        print(move)
         match move[0]:
             case "U":
                 cube.move_u(move[1])

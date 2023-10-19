@@ -22,18 +22,23 @@ def solve_cube(team, result_folder):
     pic_splitter.tile(3, tmp_dir_path)
     matrix_data = pic_splitter.get_matrix()
     for matrix in matrix_data:
+        # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
+        flattened_matrix = [element for row in matrix[1] for element in row]
+
         coord_x = int(matrix[0][0]/3)
         coord_y = int(matrix[0][1]/3)
         # create base cube
         cube = Cube()
         r_viewer = viewer()
+        # Check if the center face correspond
+        if not cube.get_matrix_cube()[2][4] == flattened_matrix[4]:
+            cube.move_center(flattened_matrix)
         r_viewer.set_new_pic(cube.get_cube())
         r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part0.png"))
         pdf_generator.add_text("Image Position : " + pdf_generator.reformatImageName(
             str(str(coord_x) + "_" + str(coord_y) + "_part0.png")))
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
-        # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
-        flattened_matrix = [element for row in matrix[1] for element in row]
+
         # give matrix to solver
         fSolver.to_face(cube, flattened_matrix)
         # save cube moved

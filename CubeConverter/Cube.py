@@ -28,11 +28,142 @@ class Cube:
         ]
 
         self.moves_history = []
-
+        print("passe")
         if not self.__base_check():
             exit(1)
 
     # moves
+
+    # Move Face from center
+    def move_center(self, matrix):
+        centerColor = matrix[4]
+        match centerColor:
+            case 'R':
+                self.cube = [
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B'],
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G']
+                ]
+            case 'B':
+                self.cube = [
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y'],
+                ]
+            case 'O':
+                self.cube = [
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y']
+                ]
+            case 'G':
+                self.cube = [
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y']
+                ]
+            case 'W':
+                self.cube = [
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y'],
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B']
+                ]
+            case 'Y':
+                self.cube = [
+                    ['G', 'G', 'G',
+                     'G', 'G', 'G',
+                     'G', 'G', 'G'],
+                    ['O', 'O', 'O',
+                     'O', 'O', 'O',
+                     'O', 'O', 'O'],
+                    ['Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y',
+                     'Y', 'Y', 'Y'],
+                    ['R', 'R', 'R',
+                     'R', 'R', 'R',
+                     'R', 'R', 'R'],
+                    ['W', 'W', 'W',
+                     'W', 'W', 'W',
+                     'W', 'W', 'W'],
+                    ['B', 'B', 'B',
+                     'B', 'B', 'B',
+                     'B', 'B', 'B']
+                ]
 
     # Move U x times
     def move_u(self, x=1):
@@ -71,10 +202,6 @@ class Cube:
             self.cube[self.BACK] = new_back_face
             # Add the move to history
             self.moves_history.append("U")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -117,12 +244,10 @@ class Cube:
 
             # Add the move to history
             self.moves_history.append("D")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
+            print("error invalid cube")
             exit(1)
+        print("passe")
 
     # Move U' x times
     def move_u_p(self, x=1):
@@ -161,10 +286,6 @@ class Cube:
             self.cube[self.BACK] = new_back_face
             # Add the move to history
             self.moves_history.append("U'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -205,10 +326,6 @@ class Cube:
             self.cube[self.BACK] = new_back_face
 
             self.moves_history.append("D'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -247,10 +364,6 @@ class Cube:
 
             # Add the move to history
             self.moves_history.append("L")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -289,10 +402,6 @@ class Cube:
 
             # Add the move to history
             self.moves_history.append("L'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -319,9 +428,9 @@ class Cube:
                              self.cube[self.UP][2], self.cube[face_nb][7], self.cube[face_nb][8]]
             # move down face
             face_nb = self.DOWN
-            new_down_face = [self.cube[face_nb][6], self.cube[face_nb][1], self.cube[self.BACK][6],
+            new_down_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.BACK][6],
                              self.cube[face_nb][3], self.cube[face_nb][4], self.cube[self.BACK][3],
-                             self.cube[face_nb][0], self.cube[face_nb][7], self.cube[self.BACK][0]]
+                             self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.BACK][0]]
 
             self.cube[self.UP] = new_up_face
             self.cube[self.RIGHT] = new_right_face
@@ -331,10 +440,6 @@ class Cube:
 
             # Add the move to history
             self.moves_history.append("R")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -356,9 +461,9 @@ class Cube:
                              self.cube[face_nb][6], self.cube[face_nb][7], self.cube[self.UP][8]]
             # move back face
             face_nb = self.BACK
-            new_back_face = [self.cube[self.DOWN][8], self.cube[face_nb][1], self.cube[face_nb][8],
+            new_back_face = [self.cube[self.DOWN][8], self.cube[face_nb][1], self.cube[face_nb][2],
                              self.cube[self.DOWN][5], self.cube[face_nb][4], self.cube[face_nb][5],
-                             self.cube[self.DOWN][2], self.cube[face_nb][7], self.cube[face_nb][2]]
+                             self.cube[self.DOWN][2], self.cube[face_nb][7], self.cube[face_nb][8]]
             # move down face
             face_nb = self.DOWN
             new_down_face = [self.cube[face_nb][0], self.cube[face_nb][1], self.cube[self.FACE][2],
@@ -371,10 +476,6 @@ class Cube:
             self.cube[self.DOWN] = new_down_face
             # Add the move to history
             self.moves_history.append("R'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -408,10 +509,6 @@ class Cube:
             self.cube[self.DOWN] = new_down_face
             # Add the move to history
             self.moves_history.append("F")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -445,10 +542,6 @@ class Cube:
             self.cube[self.DOWN] = new_down_face
             # Add the move to history
             self.moves_history.append("F'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -483,10 +576,6 @@ class Cube:
             self.cube[self.RIGHT] = new_right_face
             # Add the move to history
             self.moves_history.append("B")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -522,10 +611,6 @@ class Cube:
             self.cube[self.RIGHT] = new_right_face
             # Add the move to history
             self.moves_history.append("B'")
-            for i in range(6):
-                print(i)
-                print(self.cube[i])
-            print()
         if not self.__base_check():
             exit(1)
 
@@ -565,7 +650,7 @@ class Cube:
         return [
             {"moves": [["L", 1]], "color": self.cube[self.UP][3]},
             {"moves": [["B", 1], ["L'", 1], ["F'", 1], ["D", 1], ["F", 1]], "color": self.cube[self.UP][1]},
-            {"moves": [["U", ], ["L'", 1], ["U", 2]], "color": self.cube[self.UP][5]},
+            {"moves": [["U", 2], ["L'", 1], ["U", 2]], "color": self.cube[self.UP][5]},
             {"moves": [["L'", 1]], "color": self.cube[self.DOWN][3]},
             {"moves": [["D", 2], ["L'", 1], ["D", 2]], "color": self.cube[self.DOWN][5]},
             {"moves": [["D", 1], ["L'", 1], ["D'", 1]], "color": self.cube[self.DOWN][7]},
@@ -592,7 +677,7 @@ class Cube:
             {"moves": [["D", 2], ["R", 1], ["D", 2]], "color": self.cube[self.DOWN][3]},
             {"moves": [["R", 1]], "color": self.cube[self.DOWN][5]},
             {"moves": [["D'", 1], ["R", 1], ["D", 1]], "color": self.cube[self.DOWN][5]},
-            {"moves": [["", 1], ["B'", 1], ["R", 2], ["U'", 1]], "color": self.cube[self.LEFT][1]},
+            {"moves": [["F'", 1], ["U'", 1], ["F", 1]], "color": self.cube[self.LEFT][1]},
             {"moves": [["B'", 1], ["U", 1], ["R'", 1], ["U'", 1]], "color": self.cube[self.LEFT][3]},
             {"moves": [["F", 1], ["D", 1], ["F'", 1]], "color": self.cube[self.LEFT][7]},
             {"moves": [["F", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.RIGHT][1]},
