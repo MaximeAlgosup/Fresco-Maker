@@ -6,27 +6,7 @@ class Cube:
         self.RIGHT = 3
         self.BACK = 4
         self.DOWN = 5
-        self.cube = [
-            ['W', 'W', 'W',
-             'W', 'W', 'W',
-             'W', 'W', 'W'],
-            ['R', 'R', 'R',
-             'R', 'R', 'R',
-             'R', 'R', 'R'],
-            ['B', 'B', 'B',
-             'B', 'B', 'B',
-             'B', 'B', 'B'],
-            ['O', 'O', 'O',
-             'O', 'O', 'O',
-             'O', 'O', 'O'],
-            ['G', 'G', 'G',
-             'G', 'G', 'G',
-             'G', 'G', 'G'],
-            ['Y', 'Y', 'Y',
-             'Y', 'Y', 'Y',
-             'Y', 'Y', 'Y'],
-        ]
-
+        self.cube = [['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']]
         self.moves_history = []
         if not self.__base_check():
             exit(1)
@@ -35,134 +15,20 @@ class Cube:
 
     # Move Face from center
     def move_center(self, matrix):
-        centerColor = matrix[4]
-        match centerColor:
+        center_color = matrix[4]
+        match center_color:
             case 'R':
-                self.cube = [
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B'],
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G']
-                ]
+                self.cube = [['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], ['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G']]
             case 'B':
-                self.cube = [
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y'],
-                ]
+                self.cube = [['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']]
             case 'O':
-                self.cube = [
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y']
-                ]
+                self.cube = [['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']]
             case 'G':
-                self.cube = [
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y']
-                ]
+                self.cube = [['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y']]
             case 'W':
-                self.cube = [
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y'],
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B']
-                ]
+                self.cube = [['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']]
             case 'Y':
-                self.cube = [
-                    ['G', 'G', 'G',
-                     'G', 'G', 'G',
-                     'G', 'G', 'G'],
-                    ['O', 'O', 'O',
-                     'O', 'O', 'O',
-                     'O', 'O', 'O'],
-                    ['Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y',
-                     'Y', 'Y', 'Y'],
-                    ['R', 'R', 'R',
-                     'R', 'R', 'R',
-                     'R', 'R', 'R'],
-                    ['W', 'W', 'W',
-                     'W', 'W', 'W',
-                     'W', 'W', 'W'],
-                    ['B', 'B', 'B',
-                     'B', 'B', 'B',
-                     'B', 'B', 'B']
-                ]
+                self.cube = [['G', 'G', 'G', 'G', 'G', 'G', 'G', 'G', 'G'], ['O', 'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O'], ['Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y', 'Y'], ['R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R'], ['W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W'], ['B', 'B', 'B', 'B', 'B', 'B', 'B', 'B', 'B']]
 
     # Move U x times
     def move_u(self, x=1):
@@ -644,8 +510,7 @@ class Cube:
             {"moves": [["F'", 1], ["D", 1], ["F", 1]], "color": self.cube[self.LEFT][7]},
             {"moves": [["F", 1], ["U", 1], ["F'", 1]], "color": self.cube[self.RIGHT][1]},
             {"moves": [["B", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.RIGHT][5]},
-            {"moves": [["R'", 1], ["B", 1], ["R", 1], ["U'", 1], ["L", 1], ["U", 1]],
-             "color": self.cube[self.RIGHT][7]},
+            {"moves": [["R'", 1], ["B", 1], ["R", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.RIGHT][7]},
             {"moves": [["B'", 1], ["L", 2]], "color": self.cube[self.BACK][1]},
             {"moves": [["L", 2]], "color": self.cube[self.BACK][3]},
             {"moves": [["B'", 2], ["L", 2]], "color": self.cube[self.BACK][5]},
@@ -683,6 +548,7 @@ class Cube:
             {"moves": [["B", 1], ["F'", 1], ["D'", 1], ["B", 2], ["D", 1], ["F", 1]], "color": self.cube[self.DOWN][8]},
             {"moves": [["B'", 1], ["L'", 1], ["B", 1], ["L", 1]], "color": self.cube[self.UP][0]},
             {"moves": [["B", 1], ["L'", 1], ["B'", 1], ["L", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["U", 1], ["B", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B", 1], ["U'", 1]], "color": self.cube[self.UP][6]},
             {"moves": [["B'", 1], ["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][0]},
             {"moves": [["B'", 2], ["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][2]},
             {"moves": [["U", 1], ["B", 1], ["U'", 1], ["B", 1], ["U", 1], ["B'", 1], ["U'", 1]], "color": self.cube[self.BACK][6]},
@@ -694,11 +560,12 @@ class Cube:
             {"moves": [["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B'", 1], ["R", 1], ["B", 2], ["R'", 1]], "color": self.cube[self.RIGHT][8]},
             {"moves": [["R", 1], ["B'", 1], ["R'", 1]], "color": self.cube[self.LEFT][0]},
-            {"moves": [["B", 2], ["R", 1], ["B", 1], ["R'L", 1]], "color": self.cube[self.LEFT][6]},
+            {"moves": [["B", 2], ["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.LEFT][6]},
             {"moves": [["B", 2], ["U'", 1], ["B'", 1], ["U", 1]], "color": self.cube[self.DOWN][6]},
             {"moves": [["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.DOWN][8]},
             {"moves": [["B'", 1], ["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.UP][0]},
-            {"moves": [["B'", 1], ["R", 1], ["B", 1], ["R'", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["B'", 2], ["R", 1], ["B", 2], ["R'", 1]], "color": self.cube[self.UP][2]},
+            {"moves": [["U'", 1], ["B'", 1], ["U", 1], ["B", 1], ["U'", 1], ["B'", 1], ["U", 1]], "color": self.cube[self.UP][8]},
             {"moves": [["B", 2], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][0]},
             {"moves": [["B", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][2]},
             {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][6]},
@@ -711,32 +578,34 @@ class Cube:
             {"moves": [["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.LEFT][6]},
             {"moves": [["D'", 1], ["B", 2], ["D", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B'", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.RIGHT][8]},
+            {"moves": [["D'", 1], ["B'", 1], ["D", 1], ["B", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.DOWN][0]},
             {"moves": [["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.DOWN][6]},
             {"moves": [["B", 1], ["D'", 1], ["B", 2], ["D", 1]], "color": self.cube[self.DOWN][8]},
             {"moves": [["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.UP][0]},
             {"moves": [["B", 2], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.UP][2]},
-            {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][0]},
-            {"moves": [["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][2]},
-            {"moves": [["B", 2], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][6]},
-            {"moves": [["B'", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][8]},
+            {"moves": [["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["B", 2], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["B'", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.BACK][8]}
 
         ]
 
     def get_bottom_right_corners(self):
+        print("passe")
         return [
             {"moves": [["D", 1], ["B'", 2], ["D'", 1]], "color": self.cube[self.LEFT][0]},
             {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.LEFT][6]},
             {"moves": [["B'", 1], ["D", 2], ["B", 1], ["D'", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.RIGHT][8]},
+            {"moves": [["D", 1], ["B", 1], ["D'", 1], ["B'", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.DOWN][2]},
             {"moves": [["B", 2], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.DOWN][6]},
             {"moves": [["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.DOWN][8]},
             {"moves": [["B", 2], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.UP][0]},
             {"moves": [["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.UP][2]},
-            {"moves": [["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][0]},
-            {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][2]},
-            {"moves": [["B'", 1], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][6]},
-            {"moves": [["B'", 6], ["U'", 1], ["B'", 1], ["U", 1], ["B'", 1], ["U'", 1], ["B", 1], ["U", 1]], "color": self.cube[self.BACK][8]},
-
+            {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][0]},
+            {"moves": [["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][2]},
+            {"moves": [["B", 2], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][6]},
+            {"moves": [["B'", 1], ["D", 1], ["B", 1], ["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.BACK][8]},
         ]
 
     # private
