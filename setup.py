@@ -7,7 +7,7 @@ appName = "RubiksFrescoMaker"
 # base="Win32GUI" should be used only for Windows GUI app
 base = "Win32GUI"
 
-# Dependencies are automatically detected, but it might need fine tuning.
+# Dependencies are automatically detected, but it might need fine-tuning.
 build_exe_options = {
     "excludes": ["result0", "result1", "result2", "result3", "result4", "result5"],
     "include_files": "logo/"
