@@ -5,4 +5,5 @@
 build/
 result*
 result*/*
+*/__pycache__
 
