@@ -56,7 +56,7 @@ def solve_cube(team, result_folder):
     pdf_generator.generate_pdf()
     # delete tmp folder
     shutil.rmtree(tmp_dir_path)
-    # exit(0)
+    exit(0)
 
 
 # start_win = GuiRunner()
@@ -68,7 +68,7 @@ def solve_cube(team, result_folder):
 # is_create_doc = bool(user_data[2])
 
 picture_path = "./test_pic.png"
-picture_path = "C:/Users/MaximeCARON/Pictures/cmax.png"
+# picture_path = "C:/Users/MaximeCARON/Pictures/cmax.png"
 team_nb = 16
 is_create_doc = True
 

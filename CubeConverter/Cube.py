@@ -595,7 +595,7 @@ class Cube:
         return [
             {"moves": [["D", 1], ["B'", 2], ["D'", 1]], "color": self.cube[self.LEFT][0]},
             {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.LEFT][6]},
-            {"moves": [["B'", 1], ["D", 2], ["B", 1], ["D'", 1]], "color": self.cube[self.RIGHT][2]},
+            {"moves": [["B'", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B", 1], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.RIGHT][8]},
             {"moves": [["D", 1], ["B", 1], ["D'", 1], ["B'", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.DOWN][2]},
             {"moves": [["B", 2], ["D", 1], ["B'", 1], ["D'", 1]], "color": self.cube[self.DOWN][6]},
