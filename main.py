@@ -41,6 +41,9 @@ def solve_cube(team, result_folder):
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
 
         # give matrix to solver
+        
+        cube.move_center(flattened_matrix)
+        
         fSolver.to_face(cube, flattened_matrix)
         # save cube moved
         r_viewer.set_new_pic(cube.get_cube())
