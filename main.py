@@ -15,7 +15,7 @@ def solve_cube(team, result_folder):
     os.mkdir(tmp_dir_path)
     pdf_generator = PDFGenerator("rubiks__result_" + str(result_folder) + "-team_" + str(team) + ".pdf",
                                  str(result_folder) + "/team" + str(team))
-    pdf_generator.explainationPage()
+    pdf_generator.explanation_page()
 
     # split pic in cubes
     pic_splitter = pic_converter(pic_path)
@@ -27,6 +27,7 @@ def solve_cube(team, result_folder):
 
         coord_x = int(matrix[0][0]/3)
         coord_y = int(matrix[0][1]/3)
+        print(f"x:{coord_x} , y:{coord_y}")
         # create base cube
         cube = Cube()
         r_viewer = viewer()
@@ -35,11 +36,14 @@ def solve_cube(team, result_folder):
             cube.move_center(flattened_matrix)
         r_viewer.set_new_pic(cube.get_cube())
         r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part0.png"))
-        pdf_generator.add_text("Image Position : " + pdf_generator.reformatImageName(
+        pdf_generator.add_text("Image Position : " + pdf_generator.reformat_image_name(
             str(str(coord_x) + "_" + str(coord_y) + "_part0.png")))
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
 
         # give matrix to solver
+        
+        cube.move_center(flattened_matrix)
+        
         fSolver.to_face(cube, flattened_matrix)
         # save cube moved
         r_viewer.set_new_pic(cube.get_cube())
@@ -51,7 +55,7 @@ def solve_cube(team, result_folder):
         pdf_generator.add_text("Awaited result:")
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + ".png"), 75, 75)
 
-        pdf_generator.add_pageBreak()
+        pdf_generator.add_page_break()
     pdf_generator.generate_pdf()
     # delete tmp folder
     shutil.rmtree(tmp_dir_path)
@@ -67,6 +71,7 @@ def solve_cube(team, result_folder):
 # is_create_doc = bool(user_data[2])
 
 picture_path = "./test_pic.png"
+# picture_path = "C:/Users/MaximeCARON/Pictures/cmax.png"
 team_nb = 16
 is_create_doc = True
 

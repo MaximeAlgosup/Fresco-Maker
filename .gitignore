@@ -2,6 +2,8 @@
 /test_pic.png
 /pdfDocumentations/
 
+build/
 result*
 result*/*
+*/__pycache__
 

@@ -21,6 +21,8 @@ class PictureConverter:
             self.picture = Image.open(self.picture_path)
             self.width, self.height = self.picture.size
             self.color_matrix = []
+
+        # Convert picture color
         else:
             logging.error("Can't find the picture at the specified path")
             exit(1)
@@ -104,7 +106,7 @@ class PictureConverter:
             self.color_matrix.append([[i, j], self.__to_color_matrix(crop_pic, block_size)])
             if save_pic:
                 # Save the cropped picture
-                out = os.path.join(out_folder, f'{int(i/3)}_{int(j/3)}{ext}')
+                out = os.path.join(out_folder, f'{int(i / 3)}_{int(j / 3)}{ext}')
                 crop_pic.save(out)
 
     def test_rubiks_resolution(self):
@@ -165,3 +167,43 @@ class PictureConverter:
                 return 'W'
             case _:
                 return 'N'
+
+
+# Convert the picture colors
+def __closest_color(self, pixel):
+    target_colors = {
+        'red': self.red,
+        'green': self.green,
+        'blue': self.blue,
+        'yellow': self.yellow,
+        'white': self.white,
+        'orange': self.orange
+    }
+    min_distance = float('inf')
+    closest_color = None
+
+    for color, target_color in target_colors.items():
+        r1, g1, b1 = pixel
+        r2, g2, b2 = target_color
+        distance = (r1 - r2) ** 2 + (g1 - g2) ** 2 + (b1 - b2) ** 2
+
+        if distance < min_distance:
+            min_distance = distance
+            closest_color = color
+
+    return target_colors[closest_color]
+
+
+def __convert_image_to_target_colors(self):
+    img = self.picture.convert("RGB")
+    pixels = img.load()
+
+    for i in range(img.width):
+        for j in range(img.height):
+            pixel = pixels[i, j]
+            new_color = self._closest_color(pixel)
+            pixels[i, j] = new_color
+    img.save("./test.png")
+    self.picture = img
+
+
