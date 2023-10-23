@@ -6,23 +6,23 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 class PDFGenerator:
     def __init__(self, output_file, out_folder="pdfDocumentations"):
-        ##### Config
+        # Config
         self.pdfsFolder = out_folder
         self.iconsPath = "PdfGenerator/icons/"
         self.iconsSize = {"h": 56, "w": 38}  # Height and With of the image in px
 
-        ##### DON'T TOUCH
+        # DON'T TOUCH
         self.check_folder_exist()
         self.output_file = output_file
-        self.doc = SimpleDocTemplate(self.pdfsFolder+"/" + output_file, pagesize=letter)
+        self.doc = SimpleDocTemplate(self.pdfsFolder + "/" + output_file, pagesize=letter)
         self.story = []
 
     @staticmethod
-    def reformatImageName(filename):
-        fileNameArray = filename.split("_")
-        return str(int(fileNameArray[0])) + ":" + str(int(fileNameArray[1]))
+    def reformat_image_name(filename):
+        file_name_array = filename.split("_")
+        return str(int(file_name_array[0])) + ":" + str(int(file_name_array[1]))
 
-    def explainationPage(self):
+    def explanation_page(self):
 
         self.add_title("Fresco Documentation")
 
@@ -31,7 +31,7 @@ class PDFGenerator:
         self.add_text(
             "You Fresco has been splitted in many parts like the exemple above, each part can be identified by is coords the top-left corner is identified as 0:0")
 
-        self.add_pageBreak()
+        self.add_page_break()
 
     def add_title(self, text):
         style_title = getSampleStyleSheet()["Title"]
@@ -63,112 +63,98 @@ class PDFGenerator:
         self.doc.build(self.story)
 
     def check_folder_exist(self):
-        # Check if the pdf output folder exist or if it need to be create
+        # Check if the pdf output folder exist or if it needs to be created
         if not os.path.exists("./" + self.pdfsFolder):
             os.mkdir("./" + self.pdfsFolder)
             return True
         else:
             return False
 
-    def add_pageBreak(self):
+    def add_page_break(self):
         self.story.append(PageBreak())
 
-    def selectIcons(self, move):
+    def select_icons(self, move):
         icon = ""
-        realMove = move
-        moveindex = ""
+        real_move = move
+        move_index = ""
         nb_move = 1
 
         if len(move) > 1:
-            realMove = move[0:1]
+            real_move = move[0:1]
 
             match move[1:2]:
                 case "'":
-                    moveindex = "_Apostrophe"
+                    move_index = "_Apostrophe"
                 case "2":
-                    moveindex = ""
+                    move_index = ""
                     nb_move = 2
 
-        imagename = realMove
-        imageindex = moveindex
+        imagename = real_move
+        imageindex = move_index
 
         icon = imagename + imageindex
 
         return nb_move, self.iconsPath + icon + '.png'
 
-    def remove_useless_move(self, moves):
+    @staticmethod
+    def remove_useless_move(moves):
         if not moves:
             return []
 
-        clearedMoves = [moves[0]]
-        moveCount = {
-            "L":0,
-            "R":0,
-            "U":0,
-            "D":0,
-            "F":0,
-            "B":0,
-            "L'":0,
-            "R'":0,
-            "U'":0,
-            "D'":0,
-            "F'":0,
-            "B'":0,
-            "" : 0
-        }
-        moveCount[moves[0]] = 1
-        lastMove = clearedMoves[-1]
-        needToPop = False
+        cleared_moves = [moves[0]]
+        move_count = {"L": 0,"R": 0,"U": 0,"D": 0,"F": 0,"B": 0,"L'": 0,"R'": 0,"U'": 0,"D'": 0,"F'": 0,"B'": 0}
+        move_count[moves[0]] = 1
+        last_move = cleared_moves[-1]
+        need_to_pop = False
 
         for i in range(1, len(moves)):
-            currentMove = moves[i]
+            current_move = moves[i]
 
-            if currentMove == lastMove:
-                moveCount[currentMove] += 1
+            if current_move == last_move:
+                move_count[current_move] += 1
             else:
-                moveCount[currentMove] += 1
+                move_count[current_move] += 1
 
-                while moveCount[lastMove] >= 4:
-                    moveCount[lastMove] -= 4
+                while move_count[last_move] >= 4:
+                    move_count[last_move] -= 4
 
+                if move_count[last_move] == 3:
+                    cleared_moves.pop()
+                    cleared_moves.append(last_move + "'")
+                elif move_count[last_move] == 2:
+                    cleared_moves.append(last_move)
+                    cleared_moves.append(last_move)
+                elif move_count[last_move]:
+                    cleared_moves.append(last_move)
 
-                if moveCount[lastMove] == 3:
-                    clearedMoves.pop()
-                    clearedMoves.append(lastMove+"'")
-                elif moveCount[lastMove] == 2:
-                    clearedMoves.append(lastMove)
-                    clearedMoves.append(lastMove)
-                elif moveCount[lastMove] :
-                    clearedMoves.append(lastMove)
+                if i == len(moves) - 1:
+                    cleared_moves.append(current_move)
+                elif i == 2:
+                    cleared_moves.pop(1)
 
-                if i == len(moves) -1:
-                    clearedMoves.append(currentMove)
-
-                if currentMove == lastMove+"'" or currentMove+"'" == lastMove or needToPop:
-                    if needToPop:
-                        clearedMoves.pop(-2)
+                if current_move == last_move + "'" or current_move + "'" == last_move or need_to_pop:
+                    if need_to_pop:
+                        if len(cleared_moves) >= 2:
+                            cleared_moves.pop(-2)
+                        else:
+                            cleared_moves.pop(-1)
                     else:
-                        clearedMoves.pop()
-                    needToPop = not needToPop
+                        cleared_moves.pop()
+                    need_to_pop = not need_to_pop
 
+                move_count[last_move] = 0
+                last_move = current_move
 
-                moveCount[lastMove] = 0
-                lastMove = currentMove
-
-        return clearedMoves
-
-
-
-
+        return cleared_moves
 
     def add_aligned_images(self, movements):
         # Create a list to store the Image objects
         images = []
-        clearedMoves = self.remove_useless_move(movements)
+        # cleared_moves = self.remove_useless_move(movements)
 
-        for move in clearedMoves:
+        for move in movements:
             # Call selectIcon to determine the number of icons (1 or 2)
-            num_icons, icon = self.selectIcons(move)
+            num_icons, icon = self.select_icons(move)
 
             # Create Image objects based on the result of selectIcon
             image = Image(icon, self.iconsSize["w"], self.iconsSize["h"])
@@ -192,8 +178,3 @@ class PDFGenerator:
                 ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
             ]))
             self.story.append(table)
-
-# How to generate a PDF
-# call the class by passing the name of the output file
-# use these method to add component in your pdf
-# when you did it all just use the generate_pdf method and run the script
