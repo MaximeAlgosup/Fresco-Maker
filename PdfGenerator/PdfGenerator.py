@@ -97,11 +97,77 @@ class PDFGenerator:
 
         return nb_move, self.iconsPath + icon + '.png'
 
+    def remove_useless_move(self, moves):
+        if not moves:
+            return []
+
+        clearedMoves = [moves[0]]
+        moveCount = {
+            "L":0,
+            "R":0,
+            "U":0,
+            "D":0,
+            "F":0,
+            "B":0,
+            "L'":0,
+            "R'":0,
+            "U'":0,
+            "D'":0,
+            "F'":0,
+            "B'":0,
+            "" : 0
+        }
+        moveCount[moves[0]] = 1
+        lastMove = clearedMoves[-1]
+        needToPop = False
+
+        for i in range(1, len(moves)):
+            currentMove = moves[i]
+
+            if currentMove == lastMove:
+                moveCount[currentMove] += 1
+            else:
+                moveCount[currentMove] += 1
+                
+                while moveCount[lastMove] >= 4:
+                    moveCount[lastMove] -= 4
+
+                
+                if moveCount[lastMove] == 3:
+                    clearedMoves.pop()
+                    clearedMoves.append(lastMove+"'")
+                elif moveCount[lastMove] == 2:
+                    clearedMoves.append(lastMove)
+                    clearedMoves.append(lastMove)
+                elif moveCount[lastMove] : 
+                    clearedMoves.append(lastMove)
+                    
+                if i == len(moves) -1:
+                    clearedMoves.append(currentMove)
+                    
+                if currentMove == lastMove+"'" or currentMove+"'" == lastMove or needToPop:
+                    if needToPop:
+                        clearedMoves.pop(-2)
+                    else:
+                        clearedMoves.pop()
+                    needToPop = not needToPop
+                    
+                    
+                moveCount[lastMove] = 0
+                lastMove = currentMove
+
+        return clearedMoves
+                            
+                            
+                        
+
+
     def add_aligned_images(self, movements):
         # Create a list to store the Image objects
         images = []
+        clearedMoves = self.remove_useless_move(movements)
 
-        for move in movements:
+        for move in clearedMoves:
             # Call selectIcon to determine the number of icons (1 or 2)
             num_icons, icon = self.selectIcons(move)
 
