@@ -144,10 +144,15 @@ class PDFGenerator:
                     
                 if i == len(moves) -1:
                     clearedMoves.append(currentMove)
+                elif i == 2:
+                    clearedMoves.pop(1)
                     
                 if currentMove == lastMove+"'" or currentMove+"'" == lastMove or needToPop:
                     if needToPop:
-                        clearedMoves.pop(-2)
+                        if len(clearedMoves) >= 2:
+                            clearedMoves.pop(-2)
+                        else:
+                            clearedMoves.pop(-1)
                     else:
                         clearedMoves.pop()
                     needToPop = not needToPop
