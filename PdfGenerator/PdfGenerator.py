@@ -3,13 +3,12 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image, PageBreak, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet
 
-
 class PDFGenerator:
     def __init__(self, output_file, out_folder="pdfDocumentations"):
         # Config
         self.pdfsFolder = out_folder
         self.iconsPath = "PdfGenerator/icons/"
-        self.iconsSize = {"h": 56, "w": 38}  # Height and With of the image in px
+        self.iconsSize = {"h": 56, "w": 38}  # Height and Width of the image in px
 
         # DON'T TOUCH
         self.check_folder_exist()
@@ -19,41 +18,45 @@ class PDFGenerator:
 
     @staticmethod
     def reformat_image_name(filename):
+        # Function to reformat an image name
         file_name_array = filename.split("_")
         return str(int(file_name_array[0])) + ":" + str(int(file_name_array[1]))
 
     def explanation_page(self):
+        # Add the explanation page to the PDF
 
         self.add_title("Fresco Documentation")
 
         self.add_image("PDFGenerator/exemple.png", 600, 400)
 
         self.add_text(
-            "You Fresco has been splitted in many parts like the exemple above, each part can be identified by is coords the top-left corner is identified as 0:0")
+            "You Fresco has been splitted in many parts like the example above, each part can be identified by its coordinates, the top-left corner is identified as 0:0")
 
         self.add_page_break()
 
     def add_title(self, text):
+        # Add a title to the PDF
+
         style_title = getSampleStyleSheet()["Title"]
         style_title.alignment = 1
         self.story.append(Paragraph(text, style_title))
         self.story.append(Spacer(1, 12))
 
     def add_text(self, text):
-        # Add a simple text to your pdf
+        # Add a simple text to the PDF
         styles = getSampleStyleSheet()
         self.story.append(Paragraph(text, styles["Normal"]))
         self.story.append(Spacer(1, 12))
 
     def add_comment(self, comment):
-        # add a comment in red to your pdf
+        # Add a comment in red to the PDF
         styles = getSampleStyleSheet()
         comment_text = f"<font color=red>{comment}</font>"
         self.story.append(Paragraph(comment_text, styles["Normal"]))
         self.story.append(Spacer(1, 6))
 
     def add_image(self, image_path, width=200, height=200):
-        # add an image to your pdf
+        # Add an image to the PDF
         img = Image(image_path, width, height)
         self.story.append(img)
         self.story.append(Spacer(1, 12))
@@ -63,7 +66,7 @@ class PDFGenerator:
         self.doc.build(self.story)
 
     def check_folder_exist(self):
-        # Check if the pdf output folder exist or if it needs to be created
+        # Check if the pdf output folder exists or if it needs to be created
         if not os.path.exists("./" + self.pdfsFolder):
             os.mkdir("./" + self.pdfsFolder)
             return True
@@ -71,9 +74,12 @@ class PDFGenerator:
             return False
 
     def add_page_break(self):
+        # Add a page break to the PDF
         self.story.append(PageBreak())
 
     def select_icons(self, move):
+        # Determine the icons to use for a movement
+
         icon = ""
         real_move = move
         move_index = ""
@@ -98,6 +104,8 @@ class PDFGenerator:
 
     @staticmethod
     def remove_useless_move(moves):
+        # Remove unnecessary moves in a sequence
+
         if not moves:
             return []
 
@@ -148,9 +156,9 @@ class PDFGenerator:
         return cleared_moves
 
     def add_aligned_images(self, movements):
+        # Add aligned images for movements to the PDF
         # Create a list to store the Image objects
         images = []
-        # cleared_moves = self.remove_useless_move(movements)
 
         for move in movements:
             # Call selectIcon to determine the number of icons (1 or 2)
@@ -163,7 +171,6 @@ class PDFGenerator:
             if num_icons == 2:
                 image = Image(icon, self.iconsSize["w"], self.iconsSize["h"])
                 images.append(image)
-                # Add a second image if num_icons is 2
 
         col_widths = [self.iconsSize["w"] for _ in range(len(images))]
 
