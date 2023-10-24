@@ -1,6 +1,6 @@
-# Rubiks Fresco Maker
+# Fresco Maker
 
-Rubiks Fresco Maker is a little software who is made and used by the team 6 of Algosup students to split their fresco and give instruction manual to each others teams
+Fresco Maker is a little software who is made and used by the team 6 of ALGOSUP students to split their fresco and give instruction manual to each others teams
 
 We created this program with [Python 3.11.6](docs.python.org/3.11/)
 
@@ -42,8 +42,8 @@ python setup.py build
 
 This will be done in the following 5 steps:
 
-1. Fresco Picutre splitting in equal part among the teams
-2. Split the team cutted image in images of 3x3 pixels
+1. Fresco Picture splitting in equal part among the teams
+2. Split the team cut image in images of 3x3 pixels
 3. Get each 3x3 image and get colors for each pixel
 4. Generate the list of all movements to solve the cube
 5. Generate a pdf for each team with a detailed manual to create all rubiks face
