@@ -8,7 +8,7 @@ class PDFGenerator:
     def __init__(self, output_file, out_folder="pdfDocumentations"):
         # Config
         self.pdfsFolder = out_folder
-        self.iconsPath = "PdfGenerator/icons/"
+        self.iconsPath = "assets/icons/"
         self.iconsSize = {"h": 56, "w": 38}  # Height and With of the image in px
 
         # DON'T TOUCH
@@ -26,7 +26,7 @@ class PDFGenerator:
 
         self.add_title("Fresco Documentation")
 
-        self.add_image("PDFGenerator/exemple.png", 600, 400)
+        self.add_image("assets/exemple.png", 600, 400)
 
         self.add_text(
             "You Fresco has been splitted in many parts like the exemple above, each part can be identified by is coords the top-left corner is identified as 0:0")
