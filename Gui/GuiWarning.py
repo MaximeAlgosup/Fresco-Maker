@@ -18,7 +18,7 @@ class GuiWarning:
             It also binds the 'onClosing' method to the window's close event.
         """
         self.warning_win = Tk()
-        self.warning_win.title("Rubik's solver 3000: WARNING")
+        self.warning_win.title("Fresco Maker: WARNING")
 
         # Set the window dimensions and background color
         self.warning_win.geometry("400x75")

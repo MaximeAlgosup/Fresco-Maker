@@ -78,7 +78,7 @@ class GuiRunner:
         self.team_nb = 1
         self.generate_doc = True
         self.solver_win = Tk()
-        self.solver_win.title("Rubik's solver 3000")
+        self.solver_win.title("Fresco Maker")
 
         # Configure window dimensions and appearance
         self.solver_win.geometry("500x300")

@@ -36,7 +36,7 @@ class GuiError:
             within this constructor.
         """
         self.errors_win = Tk()
-        self.errors_win.title("Rubik's asolver 3000: ERROR")
+        self.errors_win.title("Fresco Maker: ERROR")
 
         # Set the window dimensions and background color
         self.errors_win.geometry("400x75")
