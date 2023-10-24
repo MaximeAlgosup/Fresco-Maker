@@ -36,7 +36,7 @@ class GuiRunner:
         self.solver_win.geometry("500x300")
         self.solver_win.configure(bg="#ffb121")
         self.solver_win.resizable(False, False)
-        self.solver_win.iconbitmap('./logo/rubiks.ico')
+        self.solver_win.iconbitmap('./assets/rubiks.ico')
 
         # Add action on window close event
         self.solver_win.protocol("WM_DELETE_WINDOW", self.onClosing)

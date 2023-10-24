@@ -7,8 +7,8 @@ class PDFGenerator:
     def __init__(self, output_file, out_folder="pdfDocumentations"):
         # Config
         self.pdfsFolder = out_folder
-        self.iconsPath = "PdfGenerator/icons/"
-        self.iconsSize = {"h": 56, "w": 38}  # Height and Width of the image in px
+        self.iconsPath = "assets/icons/"
+        self.iconsSize = {"h": 56, "w": 38}  # Height and With of the image in px
 
         # DON'T TOUCH
         self.check_folder_exist()
@@ -27,7 +27,7 @@ class PDFGenerator:
 
         self.add_title("Fresco Documentation")
 
-        self.add_image("PDFGenerator/exemple.png", 600, 400)
+        self.add_image("assets/exemple.png", 600, 400)
 
         self.add_text(
             "You Fresco has been splitted in many parts like the example above, each part can be identified by its coordinates, the top-left corner is identified as 0:0")
@@ -66,7 +66,7 @@ class PDFGenerator:
         self.doc.build(self.story)
 
     def check_folder_exist(self):
-        # Check if the pdf output folder exists or if it needs to be created
+        # Check if the pdf output folder exist or if it needs to be created
         if not os.path.exists("./" + self.pdfsFolder):
             os.mkdir("./" + self.pdfsFolder)
             return True

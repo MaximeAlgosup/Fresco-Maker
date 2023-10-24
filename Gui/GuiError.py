@@ -21,7 +21,7 @@ class GuiError:
 
         # Disable window resizing and set the window icon
         self.errors_win.resizable(False, False)
-        self.errors_win.iconbitmap('./logo/rubiks.ico')
+        self.errors_win.iconbitmap('./assets/rubiks.ico')
 
         # Add action on window close event
         self.errors_win.protocol("WM_DELETE_WINDOW", self.onClosing)

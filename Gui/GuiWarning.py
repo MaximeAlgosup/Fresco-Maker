@@ -14,7 +14,7 @@ class GuiWarning:
 
         # Disable window resizing and set the window icon
         self.warning_win.resizable(False, False)
-        self.warning_win.iconbitmap('./logo/rubiks.ico')
+        self.warning_win.iconbitmap('./assets/rubiks.ico')
 
         # Display the warning message as a label with specified font and background color
         Label(self.warning_win, text=warning_message, font=("Arial", 15, "bold"), bg="#ffb121").pack()

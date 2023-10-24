@@ -8,13 +8,14 @@ from PdfGenerator.PdfGenerator import PDFGenerator
 from FaceSolver import FaceSolver as fSolver
 import shutil
 
+
 def solve_cube(team, result_folder):
-    tmp_dir_path = "./" + str(result_folder) + "/team" + str(team) + "/tmp"
-    pic_path = "./" + str(result_folder) + "/team" + str(team) + "/team" + str(team) + ".png"
+    tmp_dir_path = result_path + "/" + str(result_folder) + "/team" + str(team) + "/tmp"
+    pic_path = result_path + "/" + str(result_folder) + "/team" + str(team) + "/team" + str(team) + ".png"
     # create tmp folder
     os.mkdir(tmp_dir_path)
-    pdf_generator = PDFGenerator("rubiks__result_" + str(result_folder) + "-team_" + str(team) + ".pdf",
-                                 str(result_folder) + "/team" + str(team))
+    pdf_generator = PDFGenerator("rubiks_result_" + str(result_folder) + "-team_" + str(team) + ".pdf",
+                                 str(result_path + "/" + result_folder) + "/team" + str(team))
     pdf_generator.explanation_page()
 
     # split pic in cubes
@@ -25,8 +26,8 @@ def solve_cube(team, result_folder):
         # format matrix to give it to the solver form [[a, b, c], [d, e, f], [g, h, i]] to [a, b, c, d, e, f, g, h, i]
         flattened_matrix = [element for row in matrix[1] for element in row]
 
-        coord_x = int(matrix[0][0]/3)
-        coord_y = int(matrix[0][1]/3)
+        coord_x = int(matrix[0][0] / 3)
+        coord_y = int(matrix[0][1] / 3)
         print(f"x:{coord_x} , y:{coord_y}")
         # create base cube
         cube = Cube()
@@ -41,9 +42,9 @@ def solve_cube(team, result_folder):
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
 
         # give matrix to solver
-        
+
         cube.move_center(flattened_matrix)
-        
+
         fSolver.to_face(cube, flattened_matrix)
         # save cube moved
         r_viewer.set_new_pic(cube.get_cube())
@@ -59,21 +60,16 @@ def solve_cube(team, result_folder):
     pdf_generator.generate_pdf()
     # delete tmp folder
     shutil.rmtree(tmp_dir_path)
-    exit(0)
 
 
-# start_win = GuiRunner()
-# start_win.run_widow()
-# user_data = start_win.get_data()
-#
-# picture_path = str(user_data[0])
-# team_nb = int(user_data[1])
-# is_create_doc = bool(user_data[2])
+start_win = GuiRunner()
+start_win.run_widow()
+user_data = start_win.get_data()
 
-picture_path = "./test_pic.png"
-# picture_path = "C:/Users/MaximeCARON/Pictures/cmax.png"
-team_nb = 16
-is_create_doc = True
+picture_path = str(user_data[0])
+team_nb = int(user_data[1])
+is_create_doc = bool(user_data[2])
+result_path = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
 
 # Check the path
 if not os.path.exists(str(picture_path)):
@@ -87,24 +83,26 @@ if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
 if team_nb < 1:
     GuiError("ERROR: team number must be \n equal or upper than 1")
 
-# Check if "result" folder already exist if it exists add 0, 1, 2... to the name
-res_folder_name = "result"
-res_folder_number = 0
-while os.path.exists("./" + res_folder_name + str(res_folder_number)):
-    res_folder_number += 1
-
-os.mkdir("./" + res_folder_name + str(res_folder_number))
-
 # Start to launch the splitter and check the picture size
 split = pic_converter(picture_path)
 if not split.test_rubiks_resolution():
     GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
 
-# GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
-for i in range(team_nb):
-    os.mkdir("./" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+if team_nb >= split.get_pic_width() // 3:
+    GuiError("ERROR: the resolution of the selected\nimage not suit with the number of team")
 
-split.split(team_nb, str("./" + res_folder_name + str(res_folder_number)))
+# Check if "result" folder already exist if it exists add 0, 1, 2... to the name
+res_folder_name = "result"
+res_folder_number = 0
+while os.path.exists(result_path + "/" + res_folder_name + str(res_folder_number)):
+    res_folder_number += 1
+
+os.mkdir(result_path + "/" + res_folder_name + str(res_folder_number))
+
+for i in range(team_nb):
+    os.mkdir(result_path + "/" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
+
+split.split(team_nb, str(result_path + "/" + res_folder_name + str(res_folder_number)))
 
 if is_create_doc:
 
