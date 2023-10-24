@@ -64,8 +64,8 @@ class PDFGenerator:
 
     def check_folder_exist(self):
         # Check if the pdf output folder exist or if it needs to be created
-        if not os.path.exists("./" + self.pdfsFolder):
-            os.mkdir("./" + self.pdfsFolder)
+        if not os.path.exists(self.pdfsFolder):
+            os.mkdir(self.pdfsFolder)
             return True
         else:
             return False
