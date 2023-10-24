@@ -7,26 +7,74 @@ class GuiRunner:
     # Add close all app on closing window
     @staticmethod
     def onClosing():
-        # Define a function to exit the application when the window is closed
+        """
+        Static method to handle the window close event.
+
+        Example:
+            RubiksSolverWindow.onClosing()
+
+        Note:
+            This method is called when the user attempts to close the application window. It exits the application
+            gracefully by calling sys.exit(0).
+        """
         sys.exit(0)
 
     def get_data(self):
-        # Get user input data
+        """
+        Get user input data.
+
+        Returns:
+            list: A list containing user input data [picture_path, team_nb, is_doc_generate].
+
+        Example:
+            data = self.get_data()
+
+        Note:
+            This method retrieves user input data from the GUI elements and returns it as a list.
+        """
         return [self.picture_path, self.team_nb, self.is_doc_generate]
 
     def set_data(self):
-        # Set data based on user input
+        """
+        Set data based on user input.
+
+        Example:
+            self.set_data()
+
+        Note:
+            This method reads user input data from GUI elements, such as input fields and checkboxes, and updates the
+            corresponding attributes of the class.
+        """
         self.picture_path = self.picture_path.get()
         self.team_nb = self.team_nb.get()
         self.is_doc_generate = self.is_doc_generate.get()
         self.solver_win.destroy()
 
-    def run_widow(self):
-        # Start the main event loop for the GUI window
+    def run_window(self):
+        """
+        Start the main event loop for the GUI window.
+
+        Example:
+            self.run_window()
+
+        Note:
+            This method initiates the main event loop for the GUI window, allowing the user to interact with the
+            application.
+        """
         self.solver_win.mainloop()
 
     def __init__(self):
-        # Initialize default values and the solver window
+        """
+        Initialize the Rubik's Solver window and default values.
+
+        Example:
+            solver_window = RubiksSolverWindow()
+
+        Note:
+            This constructor initializes the main GUI window, default values, and various elements, such as labels, input
+            fields, checkboxes, and buttons. It also sets up the appearance and configuration of the window, and binds the
+            'onClosing' method to the window's close event.
+        """
         self.team_nb = 1
         self.generate_doc = True
         self.solver_win = Tk()

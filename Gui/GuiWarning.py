@@ -4,7 +4,19 @@ from tkinter import Tk, Label
 class GuiWarning:
 
     def __init__(self, warning_message):
-        # Initialize the warning window
+        """
+        Initialize the warning window.
+
+        Args:
+            warning_message (str): The warning message to be displayed.
+
+        Example:
+            warning_window = RubiksWarningWindow("This is a warning message.")
+
+        Note:
+            This constructor initializes the warning window with the specified warning message and sets up its appearance.
+            It also binds the 'onClosing' method to the window's close event.
+        """
         self.warning_win = Tk()
         self.warning_win.title("Rubik's solver 3000: WARNING")
 

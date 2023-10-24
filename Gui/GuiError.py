@@ -4,14 +4,37 @@ from tkinter import Tk, Label, StringVar
 
 class GuiError:
 
-    # Add close all app on closing window
     @staticmethod
     def onClosing():
-        # Define a function to exit the application when the window is closed
+        """
+        Static method to handle the window close event.
+
+        Example:
+            ErrorWindow.onClosing()
+
+        Note:
+            This method is called when the user attempts to close the error message window. It exits the application
+            gracefully by calling sys.exit(0).
+        """
         sys.exit(0)
 
     def __init__(self, error_message):
-        # Initialize the error message window
+        """
+        Initialize the error message window.
+
+        Args:
+            error_message (str): The error message to display in the window.
+
+        Example:
+            error_msg = "An error occurred while solving the Rubik's Cube."
+            error_window = ErrorWindow(error_msg)
+
+        Note:
+            This constructor sets up the error message window. It configures the window's dimensions, background color,
+            title, and icon. It also binds the 'onClosing' method to the window's close event. The error message is displayed
+            in the window as a label with a specified font and background color. The main event loop for the window is started
+            within this constructor.
+        """
         self.errors_win = Tk()
         self.errors_win.title("Rubik's asolver 3000: ERROR")
 
