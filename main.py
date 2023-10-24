@@ -83,6 +83,14 @@ if not str(picture_path).lower().endswith(('.png', '.jpg', '.jpeg')):
 if team_nb < 1:
     GuiError("ERROR: team number must be \n equal or upper than 1")
 
+# Start to launch the splitter and check the picture size
+split = pic_converter(picture_path)
+if not split.test_rubiks_resolution():
+    GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
+
+if team_nb >= split.get_pic_width() // 3:
+    GuiError("ERROR: the resolution of the selected\nimage not suit with the number of team")
+
 # Check if "result" folder already exist if it exists add 0, 1, 2... to the name
 res_folder_name = "result"
 res_folder_number = 0
@@ -91,12 +99,6 @@ while os.path.exists(result_path + "/" + res_folder_name + str(res_folder_number
 
 os.mkdir(result_path + "/" + res_folder_name + str(res_folder_number))
 
-# Start to launch the splitter and check the picture size
-split = pic_converter(picture_path)
-if not split.test_rubiks_resolution():
-    GuiError("ERROR: the resolution of the selected\nimage is not achievable in rubik's cube")
-
-# GuiWarning("WARNING: if the colors do not\ncorrespond to the colors of the\nRubik's cube they can be modified")
 for i in range(team_nb):
     os.mkdir(result_path + "/" + res_folder_name + str(res_folder_number) + "/team" + str(i + 1))
 

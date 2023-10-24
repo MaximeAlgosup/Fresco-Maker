@@ -119,6 +119,9 @@ class PictureConverter:
         # Get the color matrix
         return self.color_matrix
 
+    def get_pic_width(self):
+        return self.picture.width
+
     def get_formatted_matrix(self):
         # Get the color matrix in a formatted representation
         res = []
