@@ -57,11 +57,6 @@ def to_face(cube, new_face):
                 # Set the bottom-right corner color
                 set_bottom_right_corner_color(cube, new_face[8])
 
-        # Print the current corner index
-        print(i)
-        # Print the moves performed after setting a corner
-        print(cube.get_moves())
-
         # Check if the cube is complete with the new face
         if is_cube_complete(cube, new_face):
             return

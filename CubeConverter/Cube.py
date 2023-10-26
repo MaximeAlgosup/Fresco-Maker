@@ -803,10 +803,10 @@ class Cube:
             {"moves": [["B", 1], ["U'", 1], ["L", 1], ["U", 1]], "color": self.cube[self.RIGHT][5]},
             {"moves": [["R'", 1], ["B", 1], ["R", 1], ["U'", 1], ["L", 1], ["U", 1]],
              "color": self.cube[self.RIGHT][7]},
-            {"moves": [["B'", 1], ["L", 2]], "color": self.cube[self.BACK][1]},
-            {"moves": [["L", 2]], "color": self.cube[self.BACK][3]},
-            {"moves": [["B'", 2], ["L", 2]], "color": self.cube[self.BACK][5]},
-            {"moves": [["B", 1], ["L", 2]], "color": self.cube[self.BACK][7]}
+            {"moves": [["B", 1], ["L", 2]], "color": self.cube[self.BACK][1]},
+            {"moves": [["L", 2]], "color": self.cube[self.BACK][5]},
+            {"moves": [["B'", 2], ["L", 2]], "color": self.cube[self.BACK][3]},
+            {"moves": [["B'", 1], ["L", 2]], "color": self.cube[self.BACK][7]}
         ]
 
     def get_right_crown_edges(self):
@@ -878,6 +878,7 @@ class Cube:
         return [
             {"moves": [["B", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.LEFT][0]},
             {"moves": [["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.LEFT][6]},
+            {"moves": [["D'", 1], ["B", 1], ["D", 1], ["B'", 1], ["D'", 1], ["B", 1], ["D", 1]], "color": self.cube[self.LEFT][8]},
             {"moves": [["D'", 1], ["B", 2], ["D", 1]], "color": self.cube[self.RIGHT][2]},
             {"moves": [["B'", 1], ["D'", 1], ["B'", 1], ["D", 1]], "color": self.cube[self.RIGHT][8]},
             {"moves": [["D'", 1], ["B'", 1], ["D", 1], ["B", 1], ["D'", 1], ["B'", 1], ["D", 1]],
@@ -898,7 +899,6 @@ class Cube:
         ]
 
     def get_bottom_right_corners(self):
-        print("passe")
         return [
             {"moves": [["D", 1], ["B'", 2], ["D'", 1]], "color": self.cube[self.LEFT][0]},
             {"moves": [["B", 1], ["D", 1], ["B", 1], ["D'", 1]], "color": self.cube[self.LEFT][6]},

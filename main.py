@@ -28,7 +28,6 @@ def solve_cube(team, result_folder):
 
         coord_x = int(matrix[0][0] / 3)
         coord_y = int(matrix[0][1] / 3)
-        print(f"x:{coord_x} , y:{coord_y}")
         # create base cube
         cube = Cube()
         r_viewer = viewer()
@@ -37,7 +36,7 @@ def solve_cube(team, result_folder):
             cube.move_center(flattened_matrix)
         r_viewer.set_new_pic(cube.get_cube())
         r_viewer.save_pic(tmp_dir_path, str(str(coord_x) + "_" + str(coord_y) + "_part0.png"))
-        pdf_generator.add_text("Image Position : " + pdf_generator.reformat_image_name(
+        pdf_generator.add_text("Cube position in the fresco: " + pdf_generator.reformat_image_name(
             str(str(coord_x) + "_" + str(coord_y) + "_part0.png")))
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part0.png"), 175, 175)
 
@@ -53,8 +52,6 @@ def solve_cube(team, result_folder):
 
         pdf_generator.add_aligned_images(cube.get_moves())
         pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + "_part1.png"), 175, 175)
-        pdf_generator.add_text("Awaited result:")
-        pdf_generator.add_image(tmp_dir_path + "/" + str(str(coord_x) + "_" + str(coord_y) + ".png"), 75, 75)
 
         pdf_generator.add_page_break()
     pdf_generator.generate_pdf()
@@ -63,7 +60,7 @@ def solve_cube(team, result_folder):
 
 
 start_win = GuiRunner()
-start_win.run_widow()
+start_win.run_window()
 user_data = start_win.get_data()
 
 picture_path = str(user_data[0])
