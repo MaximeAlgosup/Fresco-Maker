@@ -9,7 +9,7 @@ base = "Win32GUI"
 
 # Dependencies are automatically detected, but it might need fine-tuning.
 build_exe_options = {
-    "excludes": ["result0", "result1", "result2", "result3", "result4", "result5"],
+    "excludes": ["fresco_Installer.iit"],
     "include_files": "assets"
 }
 
