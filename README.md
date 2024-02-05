@@ -54,3 +54,5 @@ Now Follow the documentation and realize your fresco !
 ## License
 
 [MIT](./LICENSE)
+
+![Alt](https://repobeats.axiom.co/api/embed/bd306f7480449472c5dd850261549bfdcfb4e735.svg "Repobeats analytics image")
